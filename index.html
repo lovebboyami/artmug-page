@@ -51,7 +51,6 @@
     justify-content: center;
     gap: 10px;
   }
-  /* ○ 빈슬롯, ● 채워진슬롯 */
   .circle {
     width: 24px;
     height: 24px;
@@ -62,7 +61,7 @@
   .circle.empty { background: #fff; }
   .circle.full { background: #ff4a7d; }
 
-  /* 3. 포트폴리오 (한 줄에 3개, 클릭 시 원본 보기) */
+  /* 3. 포트폴리오 */
   .portfolio-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -123,128 +122,111 @@
   .step-text { font-size: 14px; font-weight: bold; color: #444; }
   .step-desc { font-size: 11px; color: #888; margin-top: 4px; }
 
-  /* 5. 견적 계산기 레이아웃 (좌측 따라다니는 박스 고정형태) */
-  .calculator-layout {
-    display: flex;
-    gap: 20px;
-    position: relative;
-  }
-  .calc-options-side {
-    flex: 1;
-  }
+  /* 5. 옵션 선택창 관련 스타일 */
+  .option-group { margin-bottom: 25px; }
+  .option-group h4 { font-size: 15px; margin: 0 0 5px 0; color: #444; }
+  .option-notice { font-size: 12px; color: #ff4a7d; margin-bottom: 10px; display: block; }
   
-  /* 따라다니는 스티커 네모박스 (Floating Box) */
-  .sticky-receipt-side {
-    width: 240px;
-    position: -webkit-sticky;
-    position: sticky;
-    top: 20px; /* 스크롤 내릴 때 상단 마진 */
-    height: fit-content;
-    background: #fff;
-    border: 2px solid #ff4a7d;
-    border-radius: 8px;
-    padding: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    z-index: 10;
-  }
-  .sticky-receipt-side h3 {
-    margin: 0 0 12px 0;
-    font-size: 16px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 8px;
-    color: #ff4a7d;
-  }
-  .receipt-item {
-    display: flex;
-    justify-content: space-between;
-    font-size: 13px;
-    margin-bottom: 6px;
-    color: #666;
-  }
-  .receipt-total {
-    margin-top: 15px;
-    border-top: 1px dashed #ccc;
-    padding-top: 12px;
-    display: flex;
-    justify-content: space-between;
-    font-weight: bold;
-    font-size: 16px;
-    color: #222;
-  }
-  
-  /* 옵션 선택창 관련 스타일 */
-  .option-group {
-    margin-bottom: 25px;
-  }
-  .option-group h4 {
-    font-size: 15px;
-    margin: 0 0 10px 0;
-    color: #444;
-  }
   .item-row {
     background: #fff;
     border: 1px solid #ddd;
     border-radius: 6px;
-    padding: 12px 15px;
+    padding: 10px 15px;
     margin-bottom: 8px;
     display: flex;
     align-items: center;
-    cursor: pointer;
     transition: background 0.2s;
   }
   .item-row:hover { background: #fdf8f9; }
   .item-row input[type="checkbox"], .item-row input[type="radio"] {
-    margin-right: 12px;
-    width: 16px;
-    height: 16px;
-    accent-color: #ff4a7d;
+    margin-right: 12px; width: 16px; height: 16px; accent-color: #ff4a7d; cursor: pointer;
   }
-  .item-info { flex: 1; }
+  .item-info { flex: 1; display: flex; flex-direction: column; }
   .item-title { font-weight: bold; font-size: 14px; }
-  .item-price { color: #ff4a7d; font-weight: bold; font-size: 14px; margin-left: auto; }
-  .discount-tag {
-    font-size: 11px;
-    background: #ffebeb;
-    color: #ff4a7d;
-    padding: 2px 6px;
-    border-radius: 4px;
-    margin-left: 8px;
-    font-weight: normal;
+  .discount-tag { font-size: 11px; background: #ffebeb; color: #ff4a7d; padding: 2px 6px; border-radius: 4px; display: inline-block; width: fit-content; margin-top: 4px;}
+  .item-price { color: #ff4a7d; font-weight: bold; font-size: 14px; margin-left: auto; text-align: right;}
+  
+  /* 수량 조절 인풋 스타일 */
+  .qty-control { display: flex; align-items: center; gap: 8px; margin-left: 15px; }
+  .qty-control input[type="number"] {
+    width: 60px; padding: 5px; text-align: center; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; font-size: 14px;
   }
 
-  /* 6. 접고 펼치는 약관 박스 (details/summary 사용) */
-  .terms-details {
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    margin-bottom: 10px;
+  /* 6. 신청 서식 및 미리보기 스플릿 레이아웃 */
+  .form-split-layout {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  .form-inputs-side {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  .input-block {
     background: #fff;
-  }
-  .terms-details summary {
-    padding: 12px 15px;
-    font-weight: bold;
-    cursor: pointer;
-    outline: none;
-    user-select: none;
-    color: #444;
-  }
-  .terms-details summary:hover { background: #f9f9f9; }
-  .terms-content {
     padding: 15px;
-    border-top: 1px solid #eee;
-    background: #fafafa;
-    font-size: 13px;
-    color: #666;
+    border: 1px solid #eee;
+    border-radius: 6px;
+  }
+  .input-block label {
+    font-weight: bold; font-size: 13px; display: block; margin-bottom: 8px; color: #333;
+  }
+  .input-block span.sub-label {
+    font-size: 11px; color: #888; font-weight: normal; margin-left: 5px;
+  }
+  .input-block input[type="text"], .input-block textarea {
+    width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; font-size: 13px; box-sizing: border-box; resize: vertical;
   }
   
-  /* 신청 서식 상자 */
-  .form-preview {
-    background: #f5f5f5;
-    border-left: 4px solid #333;
-    padding: 15px;
-    font-family: monospace;
-    font-size: 13px;
-    white-space: pre-wrap;
+  /* 우측 실시간 텍스트 생성기 */
+  .form-preview-side {
+    flex: 1;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 20px;
   }
+  .preview-box {
+    background: #fafafa;
+    border: 2px solid #333;
+    border-radius: 8px;
+    padding: 20px;
+  }
+  .preview-box h3 { margin: 0 0 10px 0; font-size: 15px; color: #ff4a7d; border-bottom: 1px solid #ddd; padding-bottom: 10px;}
+  .preview-text {
+    white-space: pre-wrap;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    color: #222;
+    line-height: 1.5;
+    background: #fff;
+    border: 1px solid #eee;
+    padding: 15px;
+    border-radius: 4px;
+    height: 600px; /* 높이 넉넉하게 */
+    overflow-y: auto;
+    margin-bottom: 15px;
+  }
+  .copy-btn {
+    width: 100%;
+    background: #ff4a7d;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .copy-btn:hover { background: #e03e6d; }
+
+  /* 7. 약관 박스 */
+  .terms-details { border: 1px solid #ddd; border-radius: 6px; margin-bottom: 10px; background: #fff; }
+  .terms-details summary { padding: 12px 15px; font-weight: bold; cursor: pointer; outline: none; user-select: none; color: #444; }
+  .terms-details summary:hover { background: #f9f9f9; }
+  .terms-content { padding: 15px; border-top: 1px solid #eee; background: #fafafa; font-size: 13px; color: #666; }
 </style>
 
 <div class="artmug-container">
@@ -262,30 +244,15 @@
     <div class="slot-wrapper">
       <div class="slot-month">
         <h4>6월 슬롯</h4>
-        <div class="slot-circles">
-          <span class="circle full" title="접수완료"></span>
-          <span class="circle full" title="접수완료"></span>
-          <span class="circle empty" title="예약가능"></span>
-        </div>
-        <p style="font-size:11px; margin:8px 0 0 0; color:#888;">(현재 2/3 작업 중)</p>
+        <div class="slot-circles"><span class="circle full"></span><span class="circle full"></span><span class="circle empty"></span></div>
       </div>
       <div class="slot-month">
         <h4>7월 슬롯</h4>
-        <div class="slot-circles">
-          <span class="circle empty" title="예약가능"></span>
-          <span class="circle empty" title="예약가능"></span>
-          <span class="circle empty" title="예약가능"></span>
-        </div>
-        <p style="font-size:11px; margin:8px 0 0 0; color:#888;">(현재 0/3 예약가능)</p>
+        <div class="slot-circles"><span class="circle empty"></span><span class="circle empty"></span><span class="circle empty"></span></div>
       </div>
       <div class="slot-month">
         <h4>8월 슬롯</h4>
-        <div class="slot-circles">
-          <span class="circle empty" title="예약가능"></span>
-          <span class="circle empty" title="예약가능"></span>
-          <span class="circle empty" title="예약가능"></span>
-        </div>
-        <p style="font-size:11px; margin:8px 0 0 0; color:#888;">(현재 0/3 예약가능)</p>
+        <div class="slot-circles"><span class="circle empty"></span><span class="circle empty"></span><span class="circle empty"></span></div>
       </div>
     </div>
   </div>
@@ -293,215 +260,294 @@
   <div class="section-title">포트폴리오</div>
   <div class="content-box">
     <div class="portfolio-grid">
-      <div class="portfolio-item" onclick="window.open('이미지원본링크1.jpg', '_blank')">
-        <img src="https://via.placeholder.com/400x600?text=Portfolio+1" alt="포트폴리오1">
-      </div>
-      <div class="portfolio-item" onclick="window.open('이미지원본링크2.jpg', '_blank')">
-        <img src="https://via.placeholder.com/400x600?text=Portfolio+2" alt="포트폴리오2">
-      </div>
-      <div class="portfolio-item" onclick="window.open('이미지원본링크3.jpg', '_blank')">
-        <img src="https://via.placeholder.com/400x600?text=Portfolio+3" alt="포트폴리오3">
-      </div>
+      <div class="portfolio-item" onclick="window.open('이미지원본링크1.jpg', '_blank')"><img src="https://via.placeholder.com/400x600?text=Portfolio+1" alt="포트폴리오1"></div>
+      <div class="portfolio-item" onclick="window.open('이미지원본링크2.jpg', '_blank')"><img src="https://via.placeholder.com/400x600?text=Portfolio+2" alt="포트폴리오2"></div>
+      <div class="portfolio-item" onclick="window.open('이미지원본링크3.jpg', '_blank')"><img src="https://via.placeholder.com/400x600?text=Portfolio+3" alt="포트폴리오3"></div>
     </div>
-    <p style="font-size: 12px; color: #999; margin-top: 10px; text-align: center;">※ 이미지를 클릭하시면 큰 이미지(원본)로 보실 수 있습니다.</p>
   </div>
 
   <div class="section-title">작업 순서</div>
   <div class="content-box">
     <div class="process-steps">
-      <div class="step-item">
-        <div class="step-num">01</div>
-        <div class="step-text">문의 및 상담</div>
-        <div class="step-desc">일정 및 견적 확인</div>
-      </div>
-      <div class="step-item">
-        <div class="step-num">02</div>
-        <div class="step-text">러프 확인</div>
-        <div class="step-desc">피드백 및 수정 작업</div>
-      </div>
-      <div class="step-item">
-        <div class="step-num">03</div>
-        <div class="step-text">선화 및 채색</div>
-        <div class="step-desc">디테일 업 및 최종 보정</div>
-      </div>
-      <div class="step-item">
-        <div class="step-num">04</div>
-        <div class="step-text">최종 마감/전달</div>
-        <div class="step-desc">파츠 분리 PSD 납품</div>
-      </div>
+      <div class="step-item"><div class="step-num">01</div><div class="step-text">문의 및 상담</div></div>
+      <div class="step-item"><div class="step-num">02</div><div class="step-text">러프 확인</div></div>
+      <div class="step-item"><div class="step-num">03</div><div class="step-text">선화 및 채색</div></div>
+      <div class="step-item"><div class="step-num">04</div><div class="step-text">최종 마감/전달</div></div>
     </div>
   </div>
 
   <div class="section-title">가격 계산 및 신청 옵션</div>
   
-  <div class="calculator-layout">
+  <div class="content-box" style="background: transparent; border: none; padding: 0;">
     
-    <div class="calc-options-side">
-      
-      <div class="option-group">
-        <h4>1. 메인 작업 타입 (택 1)</h4>
-        
-        <label class="item-row">
-          <input type="radio" name="main_type" value="800000" data-name="버츄얼 전신 일러스트" onchange="calculateTotal()" checked>
-          <div class="item-info">
-            <span class="item-title">버츄얼 전신 일러스트</span>
-          </div>
-          <div class="item-price">800,000원</div>
-        </label>
-        
-        <label class="item-row">
-          <input type="radio" name="main_type" value="750000" data-name="버츄얼 전신 (협업용)" onchange="calculateTotal()">
-          <div class="item-info">
-            <span class="item-title">버츄얼 전신 일러스트 (협업용)</span>
-            <span class="discount-tag">5만원 할인</span>
-          </div>
-          <div class="item-price">750,000원</div>
-        </label>
-        
-        <label class="item-row">
-          <input type="radio" name="main_type" value="750000" data-name="해시시 작가 전신 리깅" onchange="calculateTotal()">
-          <div class="item-info">
-            <span class="item-title">리깅 협업 세트 (해시시 작가 전신 리깅)</span>
-            <span class="discount-tag">5만원 할인</span>
-          </div>
-          <div class="item-price">750,000원</div>
-        </label>
-      </div>
-      
-      <div class="option-group">
-        <h4>2. 저작권 및 기타 옵션</h4>
-        
-        <label class="item-row">
-          <input type="checkbox" name="etc_opt" value="300000" data-name="개인세 저작권 구매" onchange="calculateTotal()">
-          <div class="item-info">
-            <span class="item-title">개인세 저작권 구매</span>
-          </div>
-          <div class="item-price">+300,000원</div>
-        </label>
-        
-        <label class="item-row">
-          <input type="checkbox" name="etc_opt" value="500000" data-name="기업세 저작권 구매" onchange="calculateTotal()">
-          <div class="item-info">
-            <span class="item-title">기업세 저작권 구매</span>
-          </div>
-          <div class="item-price">+500,000원</div>
-        </label>
-        
-        <label class="item-row">
-          <input type="checkbox" name="etc_opt" value="100000" data-name="작품 3개월 비공개" onchange="calculateTotal()">
-          <div class="item-info">
-            <span class="item-title">작품 3개월 비공개 요청</span>
-          </div>
-          <div class="item-price">+100,000원</div>
-        </label>
-      </div>
-
-      <div class="option-group">
-        <h4>3. 상세 추가 옵션 (샘플용)</h4>
-        <label class="item-row">
-          <input type="checkbox" name="etc_opt" value="50000" data-name="표정 차분 추가(1종)" onchange="calculateTotal()">
-          <div class="item-info">
-            <span class="item-title">표정 차분 추가 (1종당)</span>
-          </div>
-          <div class="item-price">+50,000원</div>
-        </label>
-        <label class="item-row">
-          <input type="checkbox" name="etc_opt" value="150000" data-name="의상 디자인 추가" onchange="calculateTotal()">
-          <div class="item-info">
-            <span class="item-title">복잡한 의상 / 소품 디자인 추가</span>
-          </div>
-          <div class="item-price">+150,000원</div>
-        </label>
-      </div>
-
+    <div class="option-group">
+      <h4>1. 전신 일러스트 (택 1)</h4>
+      <label class="item-row">
+        <input type="radio" name="opt_main" value="800000" data-name="버츄얼 전신 일러스트" onchange="generateForm()" checked>
+        <div class="item-info"><span class="item-title">버츄얼 전신 일러스트</span></div>
+        <div class="item-price">800,000원</div>
+      </label>
+      <label class="item-row">
+        <input type="radio" name="opt_main" value="750000" data-name="버츄얼 전신 일러스트 (협업용)" onchange="generateForm()">
+        <div class="item-info">
+          <span class="item-title">버츄얼 전신 일러스트 (협업용)</span>
+          <span class="discount-tag">5만원 할인</span>
+        </div>
+        <div class="item-price">750,000원</div>
+      </label>
     </div>
     
-    <div class="sticky-receipt-side">
-      <h3>실시간 견적 계산기</h3>
-      <div id="receipt-items-list">
-        <div class="receipt-item"><span>버츄얼 전신 일러스트</span><span>800,000원</span></div>
+    <div class="option-group">
+      <h4>2. 리깅 협업 세트</h4>
+      <span class="option-notice">💡 리깅은 협업 작가님께 별도 신청이 필요해요.</span>
+      <label class="item-row">
+        <input type="checkbox" id="opt_rigging" value="750000" data-name="해시시 작가 전신 리깅" onchange="generateForm()">
+        <div class="item-info">
+          <span class="item-title">해시시 작가 전신 리깅</span>
+          <span class="discount-tag">5만원 할인</span>
+        </div>
+        <div class="item-price">750,000원</div>
+      </label>
+    </div>
+
+    <div class="option-group">
+      <h4>3. 추가 옵션</h4>
+      
+      <div class="item-row">
+        <div class="item-info"><span class="item-title">표정, 얼굴 파츠 추가 (개당)</span></div>
+        <div class="item-price">10,000원</div>
+        <div class="qty-control"><input type="number" class="opt-addon" data-name="표정·얼굴 파츠 추가" data-price="10000" value="0" min="0" oninput="generateForm()"> 개</div>
       </div>
-      <div class="receipt-total">
-        <span>총 금액</span>
-        <span id="total-price-display">800,000원</span>
+      
+      <div class="item-row">
+        <div class="item-info"><span class="item-title">손 추가 (브이, 손하트 등) (개당)</span></div>
+        <div class="item-price">60,000원</div>
+        <div class="qty-control"><input type="number" class="opt-addon" data-name="손 추가 (브이, 손하트 등)" data-price="60000" value="0" min="0" oninput="generateForm()"> 개</div>
       </div>
-      <p style="font-size:11px; color:#888; margin-top:10px; line-height:1.3; text-align:center;">
-        ※ 선택하신 옵션을 바탕으로 계산된 금액입니다. 신청서 작성 시 참고 부탁드립니다.
-      </p>
+      
+      <div class="item-row">
+        <div class="item-info"><span class="item-title">손 + 소품 추가 (게임기, 마이크 등) (개당)</span></div>
+        <div class="item-price">100,000원</div>
+        <div class="qty-control"><input type="number" class="opt-addon" data-name="손+소품 추가" data-price="100000" value="0" min="0" oninput="generateForm()"> 개</div>
+      </div>
+      
+      <div class="item-row">
+        <div class="item-info"><span class="item-title">겉옷 ON+OFF</span></div>
+        <div class="item-price">100,000원</div>
+        <div class="qty-control"><input type="number" class="opt-addon" data-name="겉옷 ON+OFF" data-price="100000" value="0" min="0" oninput="generateForm()"> 개</div>
+      </div>
+
+      <div class="item-row">
+        <div class="item-info"><span class="item-title">신의상 (문의)</span></div>
+        <div class="item-price">300,000원</div>
+        <div class="qty-control"><input type="number" class="opt-addon" data-name="신의상" data-price="300000" value="0" min="0" oninput="generateForm()"> 개</div>
+      </div>
+
+      <div class="item-row">
+        <div class="item-info"><span class="item-title">기본바디 (신의상 계획이 있다면 추가 부탁드립니다)</span></div>
+        <div class="item-price">100,000원</div>
+        <div class="qty-control"><input type="number" class="opt-addon" data-name="기본바디" data-price="100000" value="0" min="0" oninput="generateForm()"> 개</div>
+      </div>
+
+      <div class="item-row">
+        <div class="item-info"><span class="item-title">동물 귀</span></div>
+        <div class="item-price">30,000원</div>
+        <div class="qty-control"><input type="number" class="opt-addon" data-name="동물 귀" data-price="30000" value="0" min="0" oninput="generateForm()"> 개</div>
+      </div>
+
+      <div class="item-row">
+        <div class="item-info"><span class="item-title">동물 꼬리</span></div>
+        <div class="item-price">30,000원</div>
+        <div class="qty-control"><input type="number" class="opt-addon" data-name="동물 꼬리" data-price="30000" value="0" min="0" oninput="generateForm()"> 개</div>
+      </div>
+    </div>
+
+    <div class="option-group">
+      <h4>4. 저작권 및 기타 옵션</h4>
+      
+      <label class="item-row">
+        <input type="checkbox" class="opt-etc" value="300000" data-name="개인세 저작권" onchange="generateForm()">
+        <div class="item-info"><span class="item-title">개인세 저작권 구매</span></div>
+        <div class="item-price">300,000원</div>
+      </label>
+      
+      <label class="item-row">
+        <input type="checkbox" class="opt-etc" value="500000" data-name="기업세 저작권" onchange="generateForm()">
+        <div class="item-info"><span class="item-title">기업세 저작권 구매</span></div>
+        <div class="item-price">500,000원</div>
+      </label>
+      
+      <label class="item-row">
+        <input type="checkbox" class="opt-etc" value="100000" data-name="작품 3개월 비공개" onchange="generateForm()">
+        <div class="item-info"><span class="item-title">작품 3개월 비공개</span></div>
+        <div class="item-price">100,000원</div>
+      </label>
+
+      <label class="item-row">
+        <input type="checkbox" class="opt-etc" value="200000" data-name="삼면도" onchange="generateForm()">
+        <div class="item-info"><span class="item-title">삼면도 추가</span></div>
+        <div class="item-price">200,000원</div>
+      </label>
     </div>
 
   </div>
 
-  <div class="section-title">작가님께 전할 말 & 신청 양식</div>
-  <div class="content-box">
-    <p style="font-size: 14px; font-weight: bold; margin-top: 0;">[ 작업 신청 서식 ]</p>
-    <div class="form-preview">1. 활동 닉네임 / 입금자명: 
-2. 신청 타입: (예: 버츄얼 전신 일러스트 / 개인세 저작권 포함)
-3. 캐릭터 설정 자료: (성별, 성격, 키워드, 의상 디자인, 참고 이미지 첨부)
-4. 희망 마감일: 
-5. 기타 요청사항 및 추가 옵션 여부:</div>
+  <div class="section-title">신청 양식 작성 및 복사</div>
+  
+  <div class="form-split-layout">
+    
+    <div class="form-inputs-side">
+      <div class="input-block">
+        <label>✉ 작가님께 전할 말</label>
+        <textarea id="in_msg" rows="3" placeholder="간단한 인사말이나 질문을 적어주세요." oninput="generateForm()"></textarea>
+      </div>
+      
+      <div class="input-block">
+        <label>방송 닉네임 <span class="sub-label">(SNS, 포트폴리오 업로드 시 기재합니다)</span></label>
+        <input type="text" id="in_nick" placeholder="닉네임 입력" oninput="generateForm()">
+      </div>
+
+      <div class="input-block">
+        <label>1. 캐릭터 전신 그림 :</label>
+        <textarea id="in_q1" rows="3" placeholder="자세한 외형 묘사나 레퍼런스 링크를 남겨주세요." oninput="generateForm()"></textarea>
+      </div>
+
+      <div class="input-block">
+        <label>2. 캐릭터 성별, 키, 몸매 :</label>
+        <input type="text" id="in_q2" placeholder="예: 여성, 160cm, 마른 체형" oninput="generateForm()">
+      </div>
+
+      <div class="input-block">
+        <label>3. 캐릭터 외관나이, 성별 :</label>
+        <input type="text" id="in_q3" placeholder="예: 20대 초반 여성" oninput="generateForm()">
+      </div>
+
+      <div class="input-block">
+        <label>4. 기타 :</label>
+        <textarea id="in_q4" rows="3" placeholder="추가적인 요청사항을 적어주세요." oninput="generateForm()"></textarea>
+      </div>
+
+      <div class="input-block">
+        <label>5. 의뢰자 목소리 자료 : <span class="sub-label">(필수사항X)</span></label>
+        <input type="text" id="in_q5" placeholder="참고용 유튜브 링크 등이 있다면 적어주세요." oninput="generateForm()">
+      </div>
+    </div>
+
+    <div class="form-preview-side">
+      <div class="preview-box">
+        <h3>📋 최종 신청 양식 (자동완성)</h3>
+        <div id="preview-text" class="preview-text">여기에 양식이 실시간으로 생성됩니다...</div>
+        <button class="copy-btn" onclick="copyForm()">✨ 완성된 양식 복사하기</button>
+      </div>
+    </div>
+
   </div>
 
   <div class="section-title">작업안내 약관 (클릭하여 열기)</div>
-  
-  <details class="terms-details">
-    <summary>저작권 및 상업적 이용 안내</summary>
-    <div class="terms-content">
-      여기에 내용을 입력하는 공간입니다. 나중에 원하는 텍스트로 자유롭게 수정해서 사용하세요.
-    </div>
-  </details>
-
-  <details class="terms-details">
-    <summary>수정 및 환불 규정</summary>
-    <div class="terms-content">
-      여기에 내용을 입력하는 공간입니다. 나중에 원하는 텍스트로 자유롭게 수정해서 사용하세요.
-    </div>
-  </details>
-
-  <details class="terms-details">
-    <summary>작업 불가 범위 및 유의사항</summary>
-    <div class="terms-content">
-      여기에 내용을 입력하는 공간입니다. 나중에 원하는 텍스트로 자유롭게 수정해서 사용하세요.
-    </div>
-  </details>
+  <details class="terms-details"><summary>저작권 및 상업적 이용 안내</summary><div class="terms-content">내용 입력 공간입니다.</div></details>
+  <details class="terms-details"><summary>수정 및 환불 규정</summary><div class="terms-content">내용 입력 공간입니다.</div></details>
+  <details class="terms-details"><summary>작업 불가 범위 및 유의사항</summary><div class="terms-content">내용 입력 공간입니다.</div></details>
 
 </div>
 
 <script>
-  function calculateTotal() {
+  function generateForm() {
     let total = 0;
-    let receiptHtml = '';
     
-    // 1. 메인 라디오 타입 계산
-    const mainTypes = document.getElementsByName('main_type');
-    let selectedMain = null;
-    for (let i = 0; i < mainTypes.length; i++) {
-      if (mainTypes[i].checked) {
-        selectedMain = mainTypes[i];
-        break;
-      }
-    }
-    
-    if (selectedMain) {
-      const price = parseInt(selectedMain.value);
-      const name = selectedMain.getAttribute('data-name');
-      total += price;
-      receiptHtml += `<div class="receipt-item"><span>${name}</span><span>${price.toLocaleString()}원</span></div>`;
-    }
-    
-    // 2. 추가 체크박스 옵션 계산
-    const etcOptions = document.getElementsByName('etc_opt');
-    for (let i = 0; i < etcOptions.length; i++) {
-      if (etcOptions[i].checked) {
-        const price = parseInt(etcOptions[i].value);
-        const name = etcOptions[i].getAttribute('data-name');
+    // [작가명 수정] 아래 '모무꼬'를 작가님의 실제 활동명으로 변경하세요.
+    let formText = "모무꼬 작가 · Live2D 의뢰 양식\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n";
+
+    // 1. 기본 일러스트 (라디오)
+    const mainRadios = document.getElementsByName('opt_main');
+    formText += "▸ 기본 일러스트\n";
+    for (let i = 0; i < mainRadios.length; i++) {
+      if (mainRadios[i].checked) {
+        let price = parseInt(mainRadios[i].value);
+        let name = mainRadios[i].getAttribute('data-name');
         total += price;
-        receiptHtml += `<div class="receipt-item"><span>+ ${name}</span><span>${price.toLocaleString()}원</span></div>`;
+        formText += `  · ${name}\n    → ${price.toLocaleString()}원\n\n`;
       }
     }
-    
+
+    // 2. 리깅 협업 세트 (체크박스)
+    const riggingOpt = document.getElementById('opt_rigging');
+    if (riggingOpt.checked) {
+      let price = parseInt(riggingOpt.value);
+      let name = riggingOpt.getAttribute('data-name');
+      total += price;
+      formText += `▸ 리깅 협업 세트\n  · ${name}\n    → ${price.toLocaleString()}원\n\n`;
+    }
+
+    // 3. 추가 옵션 (수량)
+    const addons = document.querySelectorAll('.opt-addon');
+    let addonText = "";
+    addons.forEach(item => {
+      let qty = parseInt(item.value);
+      if (qty > 0) {
+        let price = parseInt(item.getAttribute('data-price'));
+        let name = item.getAttribute('data-name');
+        let subtotal = price * qty;
+        total += subtotal;
+        addonText += `  · ${name} × ${qty}개\n    → ${subtotal.toLocaleString()}원\n`;
+      }
+    });
+    if(addonText !== "") {
+      formText += `▸ 추가 옵션\n${addonText}\n`;
+    }
+
+    // 4. 기타/저작권 (체크박스)
+    const etcs = document.querySelectorAll('.opt-etc');
+    let etcText = "";
+    etcs.forEach(item => {
+      if (item.checked) {
+        let price = parseInt(item.value);
+        let name = item.getAttribute('data-name');
+        total += price;
+        etcText += `  · ${name}\n    → ${price.toLocaleString()}원\n`;
+      }
+    });
+    if(etcText !== "") {
+      formText += `▸ 기타\n${etcText}\n`;
+    }
+
+    // 5. 합계 금액 출력
+    formText += `─────────────────────────────\n  합계 금액 : ${total.toLocaleString()}원\n─────────────────────────────\n\n`;
+
+    // 6. 의뢰자 입력 서식 매핑
+    const msg = document.getElementById('in_msg').value || "";
+    const nick = document.getElementById('in_nick').value || "";
+    const q1 = document.getElementById('in_q1').value || "";
+    const q2 = document.getElementById('in_q2').value || "";
+    const q3 = document.getElementById('in_q3').value || "";
+    const q4 = document.getElementById('in_q4').value || "";
+    const q5 = document.getElementById('in_q5').value || "";
+
+    formText += `✉ 작가님께 전할 말\n  ${msg}\n\n`;
+    formText += `[ 신청양식 ]\n`;
+    formText += `▸ 방송 닉네임 : (SNS, 포트폴리오 업로드 시 기재합니다)\n  ${nick}\n\n`;
+    formText += `▸ 1. 캐릭터 전신 그림 :\n  ${q1}\n\n`;
+    formText += `▸ 2. 캐릭터 성별, 키, 몸매:\n  ${q2}\n\n`;
+    formText += `▸ 3. 캐릭터 외관나이, 성별 :\n  ${q3}\n\n`;
+    formText += `▸ 4. 기타 :\n  ${q4}\n\n`;
+    formText += `▸ 5. 의뢰자 목소리 자료 : (필수사항X)\n  ${q5}\n\n`;
+    formText += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n양식이 완성되면 복사해서 작가님께 전달해주세요 :)`;
+
     // 화면 반영
-    document.getElementById('receipt-items-list').innerHTML = receiptHtml;
-    document.getElementById('total-price-display').innerText = total.toLocaleString() + '원';
+    document.getElementById('preview-text').innerText = formText;
   }
+
+  // 복사 버튼 기능
+  function copyForm() {
+    const textToCopy = document.getElementById('preview-text').innerText;
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      alert("✅ 신청 양식이 복사되었습니다!\n아트머그 문의 창에 붙여넣기(Ctrl+V) 해주세요.");
+    }).catch(err => {
+      alert("복사에 실패했습니다. 텍스트를 직접 드래그해서 복사해주세요.");
+    });
+  }
+
+  // 페이지 로드 시 최초 1회 실행하여 초기 세팅 렌더링
+  window.onload = function() {
+    generateForm();
+  };
 </script>
