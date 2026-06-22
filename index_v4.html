@@ -88,7 +88,18 @@
         .price-table td:nth-child(3) { width: 140px; text-align: right; }
         
         /* 선택 시 강조 효과 스타일 */
-        .price-table tr.selected-row td { background-color: #f5f4f0; border-top: 1px solid #dfdeda; border-bottom: 1px solid #dfdeda; }
+        .price-table .item-row {
+            transition: all 0.2s;
+        }
+        
+        .price-table .item-row.selected-row td {
+            background-color: #f9f6f3;
+        }
+        
+        .price-table .item-row.selected-row {
+            outline: 3px solid #8e2424;
+            outline-offset: -2px;
+        }
         
         .item-name { font-size: 18px; font-weight: bold; color: #111; display: inline-block; vertical-align: middle; }
         .item-desc { font-size: 16px; color: #666; display: block; margin-top: 6px; font-weight: normal; }
