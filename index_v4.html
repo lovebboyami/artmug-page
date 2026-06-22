@@ -117,7 +117,14 @@
         .rigging-info h4 { font-size: 19px; margin-bottom: 6px; color: #111; font-weight: bold; }
         
         /* 작가 카드 내 태그 그룹 구조 변경 (이름 밑으로 배치) */
-        .rigging-tags { display: flex; flex-direction: column; align-items: center; gap: 5px; margin-bottom: 12px; }
+        .rigging-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 12px;
+    min-height: 58px;
+}
         .rigging-badge { display: inline-block; background-color: #796e65; color: #fff; font-size: 12px; padding: 4px 10px; border-radius: 4px; font-weight: bold; line-height: 1.2; text-align: center; width: auto; max-width: 90%; }
         .rigging-badge.neutral { background-color: #5e6b75; }
         
