@@ -47,3 +47,518 @@
         .zoom-hint { position: absolute; bottom: 12px; right: 12px; background: rgba(0,0,0,0.6); color: #fff; padding: 4px 10px; font-size: 12px; border-radius: 4px; pointer-events: none; }
         .type-content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
         .type-title { font-size: 22px; color: #111; margin-bottom: 15px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
+        .type-price { font-size: 20px; color: #d9534f; font-weight: bold; }
+        .type-details { list-style: none; font-size: 15px; color: #555; }
+        .type-details li { margin-bottom: 8px; position: relative; padding-left: 15px; }
+        .type-details li::before { content: "•"; position: absolute; left: 0; color: #888; }
+
+        /* === 포트폴리오 갤러리 === */
+        .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .gallery-item { background: #f9f9f9; border-radius: 8px; overflow: hidden; border: 1px solid #eee; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.02); }
+        .gallery-img { width: 100%; height: 260px; object-fit: cover; display: block; transition: transform 0.3s ease; }
+        .gallery-item:hover .gallery-img { transform: scale(1.04); }
+        .gallery-info { padding: 12px 15px; font-size: 14px; color: #555; text-align: center; background: #fff; border-top: 1px solid #eee; font-weight: 500; }
+
+        /* === 작업 과정 === */
+        .process-list { display: flex; justify-content: space-between; background: #fdfdfd; border: 1px dashed #ccc; padding: 25px; border-radius: 8px; }
+        .process-step { flex: 1; text-align: center; position: relative; padding: 0 10px; }
+        .process-step:not(:last-child)::after { content: "→"; position: absolute; right: -10px; top: 20%; font-size: 20px; color: #aaa; }
+        .step-num { font-size: 14px; font-weight: bold; color: #007bff; margin-bottom: 5px; text-transform: uppercase; }
+        .step-title { font-size: 16px; font-weight: bold; color: #222; margin-bottom: 6px; }
+        .step-desc { font-size: 13px; color: #666; line-height: 1.4; }
+
+        /* === 리깅 협업 작가 === */
+        .rigging-container { display: flex; gap: 20px; flex-wrap: wrap; }
+        .rigging-card { flex: 1; min-width: 300px; border: 1px solid #e0e0e0; border-radius: 12px; padding: 20px; display: flex; gap: 15px; background: #fff; align-items: center; position: relative; transition: all 0.2s ease; cursor: pointer; }
+        .rigging-card:hover { border-color: #007bff; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .rigging-avatar { width: 75px; height: 75px; border-radius: 50%; object-fit: cover; border: 1px solid #ddd; flex-shrink: 0; }
+        .rigging-info { flex-grow: 1; }
+        .rigging-name { font-size: 16px; font-weight: bold; color: #222; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+        .rigging-tag { background: #e3f2fd; color: #0d47a1; font-size: 11px; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
+        .rigging-desc { font-size: 13px; color: #666; margin-bottom: 8px; line-height: 1.4; }
+        .rigging-link { font-size: 13px; color: #007bff; text-decoration: none; }
+        .rigging-link:hover { text-decoration: underline; }
+        .rigging-select-box { display: flex; align-items: center; gap: 6px; margin-top: 8px; font-size: 13px; color: #444; font-weight: 500; }
+        .rigging-select-box input { cursor: pointer; }
+
+        /* === 견적 계산기 === */
+        .calc-box { background: #fdfdfd; border: 1px solid #ddd; border-radius: 12px; padding: 30px; }
+        .calc-row { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #eee; }
+        .calc-row:last-of-type { border-bottom: none; }
+        .calc-label { font-size: 16px; font-weight: bold; color: #333; }
+        .calc-label span { display: block; font-size: 13px; color: #777; font-weight: normal; margin-top: 3px; }
+        .calc-control { display: flex; align-items: center; gap: 10px; }
+        .btn-qty { width: 32px; height: 32px; border: 1px solid #ccc; background: #fff; border-radius: 4px; cursor: pointer; font-size: 18px; font-weight: bold; display: flex; align-items: center; justify-content: center; }
+        .btn-qty:hover { background: #f0f0f0; }
+        .qty-input { width: 45px; height: 32px; text-align: center; border: 1px solid #ccc; border-radius: 4px; font-size: 15px; font-weight: bold; background: #fff; }
+        
+        .total-box { margin-top: 25px; padding-top: 20px; border-top: 2px solid #333; text-align: right; }
+        .total-label { font-size: 16px; color: #555; margin-right: 10px; }
+        .total-price { font-size: 28px; font-weight: bold; color: #d9534f; }
+
+        /* === 실시간 신청서 양식 === */
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 20px; }
+        .form-inputs { display: flex; flex-direction: column; gap: 15px; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        .form-group label { font-size: 14px; font-weight: bold; color: #444; }
+        .form-group input[type="text"], .form-group textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; }
+        .form-group textarea { height: 110px; resize: none; }
+        
+        .form-preview { display: flex; flex-direction: column; }
+        .preview-title { font-size: 14px; font-weight: bold; color: #444; margin-bottom: 6px; }
+        .preview-box { flex-grow: 1; background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 6px; padding: 15px; font-family: monospace; font-size: 13px; color: #333; white-space: pre-wrap; overflow-y: auto; height: 360px; line-height: 1.5; }
+        
+        .form-actions { grid-column: span 2; display: flex; gap: 15px; justify-content: center; margin-top: 10px; }
+        .btn-action { padding: 12px 30px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; border: none; }
+        .btn-primary { background: #007bff; color: #fff; }
+        .btn-primary:hover { background: #0056b3; }
+        .btn-secondary { background: #e9ecef; color: #495057; }
+        .btn-secondary:hover { background: #dee2e6; }
+
+        /* === 이미지 모달 팝업 === */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); align-items: center; justify-content: center; opacity: 0; transition: opacity 0.25s ease; }
+        .modal.show { display: flex; opacity: 1; }
+        .modal-content { max-width: 85%; max-height: 85vh; object-fit: contain; border-radius: 4px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); transform: scale(0.95); transition: transform 0.25s ease; }
+        .modal.show .modal-content { transform: scale(1); }
+        .modal-close { position: absolute; top: 20px; right: 30px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; user-select: none; }
+        .modal-close:hover { color: #ccc; }
+
+        /* === 반응형 레이아웃 조정 === */
+        @media (max-width: 992px) {
+            .type-grid { grid-template-columns: 1fr; }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+            .form-grid { grid-template-columns: 1fr; }
+            .form-actions { grid-column: span 1; }
+            .process-list { flex-direction: column; gap: 20px; }
+            .process-step:not(:last-child)::after { content: "↓"; top: auto; bottom: -20px; right: 48%; }
+        }
+        @media (max-width: 576px) {
+            .container { padding: 20px; }
+            .profile-container { flex-direction: column; text-align: center; padding: 20px; }
+            .gallery-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="profile-container">
+        <img src="profile.jpg" alt="프로필 이미지" class="profile-img">
+        <div class="profile-info">
+            <h1>레레 (Rere)</h1>
+            <p>안녕하세요. 깔끔하고 매력적인 일러스트 및 Live2D 캐릭터를 제작하는 레레입니다.</p>
+            <div class="sns-links">
+                <a href="https://twitter.com" target="_blank">트위터 (X)</a>
+                <a href="https://youtube.com" target="_blank">유튜브</a>
+                <a href="https://artmug.kr" target="_blank">아트머그 프로필</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>공지사항</h2>
+        <div class="notice-box">
+            <p>• 모든 작업물의 저작권은 작가(<span class="important">레레</span>)에게 있습니다. 상업적 이용 시 사전 협의가 필요합니다.</p>
+            <p>• 작업 기간은 입금 확인 후 최소 <span class="important">2주에서 최대 8주</span>까지 소요될 수 있습니다.</p>
+            <p>• 신청 후 단순 변심으로 인한 환불은 불가능하오니 신중하게 결정해 주시기 바랍니다.</p>
+            <p>• 복잡한 장신구, 무기, 배경 추가 시 추가 금액이 발생할 수 있습니다.</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>작업 슬롯 현황 <span class="sub-notice">* 슬롯이 차면 창이 닫힙니다.</span></h2>
+        <div class="slot-container">
+            <div class="slot-card active">
+                <div class="slot-month">7월 작업 슬롯</div>
+                <div class="slot-status status-open">신청 가능</div>
+            </div>
+            <div class="slot-card active">
+                <div class="slot-month">8월 작업 슬롯</div>
+                <div class="slot-status status-open">신청 가능</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>타입별 안내</h2>
+        <div class="type-grid">
+            <div class="type-card">
+                <div class="type-img-wrapper" onclick="openModal('portfolio1.jpg')">
+                    <img src="portfolio1.jpg" alt="A타입 샘플" class="type-img">
+                    <div class="zoom-hint">🔍 클릭 시 확대</div>
+                </div>
+                <div class="type-content">
+                    <div class="type-title">
+                        <span>A타입 - 캐릭터 일러스트</span>
+                        <span class="type-price">150,000원 ~</span>
+                    </div>
+                    <ul class="type-details">
+                        <li>두상 / 반신 / 전신 선택 가능 (기본가 전신 기준)</li>
+                        <li>해상도: 300dpi / RGB 모드</li>
+                        <li>기본 배경 무지 혹은 간단한 효과 제공</li>
+                        <li>소공개 및 포트폴리오 사용 권한 포함</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="type-card">
+                <div class="type-img-wrapper" onclick="openModal('portfolio2.jpg')">
+                    <img src="portfolio2.jpg" alt="B타입 샘플" class="type-img">
+                    <div class="zoom-hint">🔍 클릭 시 확대</div>
+                </div>
+                <div class="type-content">
+                    <div class="type-title">
+                        <span>B타입 - Live2D 버츄얼 모델링</span>
+                        <span class="type-price">500,000원 ~</span>
+                    </div>
+                    <ul class="type-details">
+                        <li>XYZ축 고품질 입체 레이어 분리 포함</li>
+                        <li>기본 표정 3종 무료 제공 (기쁨, 슬픔, 분노)</li>
+                        <li>VTube Studio 완벽 연동 세팅 지원</li>
+                        <li>리깅 협업 작가 연계 시 특별 할인 적용 가능</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>포트폴리오 일람</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item" onclick="openModal('portfolio1.jpg')">
+                <img src="portfolio1.jpg" alt="갤러리1" class="gallery-img">
+                <div class="gallery-info">LD 전신 샘플 01</div>
+            </div>
+            <div class="gallery-item" onclick="openModal('portfolio2.jpg')">
+                <img src="portfolio2.jpg" alt="갤러리2" class="gallery-img">
+                <div class="gallery-info">Live2D 원화 분리 샘플</div>
+            </div>
+            <div class="gallery-item" onclick="openModal('portfolio3.jpg')">
+                <img src="portfolio3.jpg" alt="갤러리3" class="gallery-img">
+                <div class="gallery-info">SD 캐릭터 디자인</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>작업 프로세스</h2>
+        <div class="process-list">
+            <div class="process-step">
+                <div class="step-num">Step 01</div>
+                <div class="step-title">문의 및 접수</div>
+                <div class="step-desc">양식 확인 후 견적 및 일정 조율</div>
+            </div>
+            <div class="process-step">
+                <div class="step-num">Step 02</div>
+                <div class="step-title">입금 확인</div>
+                <div class="step-desc">선금 확인 후 본 작업 착수</div>
+            </div>
+            <div class="process-step">
+                <div class="step-num">Step 03</div>
+                <div class="step-title">러프 피드백</div>
+                <div class="step-desc">구도 및 색상 배정 피드백 (수정 2회)</div>
+            </div>
+            <div class="process-step">
+                <div class="step-num">Step 04</div>
+                <div class="step-title">선화 및 채색</div>
+                <div class="step-desc">디테일 묘사 진행 후 최종 확인</div>
+            </div>
+            <div class="process-step">
+                <div class="step-num">Step 05</div>
+                <div class="step-title">최종 전달</div>
+                <div class="step-desc">파일 제공 및 완료 승인</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>리깅 협업 작가 연계 안내 <span class="sub-notice">* 선택 시 패키지 할인 적용</span></h2>
+        <div class="rigging-container">
+            <div class="rigging-card" onclick="selectRigging('author1')">
+                <img src="rigging1.jpg" alt="리깅작가1" class="rigging-avatar">
+                <div class="rigging-info">
+                    <div class="rigging-name">
+                        모션 작가 A
+                        <span class="rigging-tag">일러스트 5만원 할인</span>
+                    </div>
+                    <p class="rigging-desc">부드러운 물리엔진 표현 전문, 자연스러운 머리카락과 의상 움직임을 구현합니다.</p>
+                    <a href="https://artmug.kr" target="_blank" class="rigging-link" onclick="event.stopPropagation();">포트폴리오 보러가기 →</a>
+                    <div class="rigging-select-box">
+                        <input type="radio" id="author1" name="rigging_author" value="author1" onclick="event.stopPropagation(); displayCalc();">
+                        <label for="author1">모션 작가 A 연계 선택</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rigging-card" onclick="selectRigging('author2')">
+                <img src="rigging2.jpg" alt="리깅작가2" class="rigging-avatar">
+                <div class="rigging-info">
+                    <div class="rigging-name">
+                        모션 작가 B
+                        <span class="rigging-tag">총액 10% 할인</span>
+                    </div>
+                    <p class="rigging-desc">아이돌풍 화려한 모션 및 다양한 감정 표현 특화, 고품질 리깅 보장.</p>
+                    <a href="https://artmug.kr" target="_blank" class="rigging-link" onclick="event.stopPropagation();">포트폴리오 보러가기 →</a>
+                    <div class="rigging-select-box">
+                        <input type="radio" id="author2" name="rigging_author" value="author2" onclick="event.stopPropagation(); displayCalc();">
+                        <label for="author2">모션 작가 B 연계 선택</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>간이 견적 계산기</h2>
+        <div class="calc-box">
+            <div class="calc-row">
+                <div class="calc-label">
+                    A타입 - 캐릭터 일러스트
+                    <span>기본가: 150,000원</span>
+                </div>
+                <div class="calc-control">
+                    <button class="btn-qty" onclick="changeQty('typeA', -1)">-</button>
+                    <input type="text" id="typeA" class="qty-input" value="0" readonly>
+                    <button class="btn-qty" onclick="changeQty('typeA', 1)">+</button>
+                </div>
+            </div>
+
+            <div class="calc-row">
+                <div class="calc-label">
+                    B타입 - Live2D 버츄얼 모델링
+                    <span>기본가: 500,000원</span>
+                </div>
+                <div class="calc-control">
+                    <button class="btn-qty" onclick="changeQty('typeB', -1)">-</button>
+                    <input type="text" id="typeB" class="qty-input" value="0" readonly>
+                    <button class="btn-qty" onclick="changeQty('typeB', 1)">+</button>
+                </div>
+            </div>
+
+            <div class="calc-row">
+                <div class="calc-label">
+                    표정 추가 (개당)
+                    <span>추가금: 20,000원</span>
+                </div>
+                <div class="calc-control">
+                    <button class="btn-qty" onclick="changeQty('optExpression', -1)">-</button>
+                    <input type="text" id="optExpression" class="qty-input" value="0" readonly>
+                    <button class="btn-qty" onclick="changeQty('optExpression', 1)">+</button>
+                </div>
+            </div>
+
+            <div class="calc-row">
+                <div class="calc-label">
+                    의상 및 헤어 추가
+                    <span>추가금: 100,000원</span>
+                </div>
+                <div class="calc-control">
+                    <button class="btn-qty" onclick="changeQty('optOutfit', -1)">-</button>
+                    <input type="text" id="optOutfit" class="qty-input" value="0" readonly>
+                    <button class="btn-qty" onclick="changeQty('optOutfit', 1)">+</button>
+                </div>
+            </div>
+
+            <div class="total-box">
+                <span class="total-label">예상 총 견적액:</span>
+                <span class="total-price" id="total-display">0원</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>신청 양식 자동 작성기</h2>
+        <div class="form-grid">
+            <div class="form-inputs">
+                <div class="form-group">
+                    <label for="applicant">닉네임 / 입금자명</label>
+                    <input type="text" id="applicant" placeholder="예시: 홍길동" oninput="updatePreview()">
+                </div>
+                <div class="form-group">
+                    <label for="purpose">사용 목적</label>
+                    <input type="text" id="purpose" placeholder="예시: 개인 방송용, 소장용, 상업용 등" oninput="updatePreview()">
+                </div>
+                <div class="form-group">
+                    <label for="concept">캐릭터 설명 (컨셉, 외관나이, 키, 성별 등)</label>
+                    <textarea id="concept" placeholder="원하시는 캐릭터의 분위기나 상세한 설정을 적어주세요. 참고 이미지가 있다면 링크로 첨부해 주셔도 좋습니다." oninput="updatePreview()"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="requests">기타 요청사항</label>
+                    <textarea id="requests" placeholder="원하는 구도나 마감일 지정 등 기타 세부 사항을 자유롭게 기재해 주세요." oninput="updatePreview()"></textarea>
+                </div>
+            </div>
+
+            <div class="form-preview">
+                <div class="preview-title">실시간 양식 복사 미리보기</div>
+                <div id="preview-box" class="preview-box">신청 내용을 입력하거나 견적 계산기를 조작하면 양식이 실시간으로 구성됩니다.</div>
+            </div>
+
+            <div class="form-actions">
+                <button class="btn-action btn-secondary" onclick="resetForm()">내용 전체 초기화</button>
+                <button class="btn-action btn-primary" onclick="copyForm()">클립보드로 복사하기</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div id="imageModal" class="modal" onclick="closeModal()">
+    <span class="modal-close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="modalImg" onclick="event.stopPropagation();">
+</div>
+
+<script>
+    // 가격 단가 정의
+    const prices = {
+        typeA: 150000,
+        typeB: 500000,
+        optExpression: 20000,
+        optOutfit: 100000
+    };
+
+    // 카드 클릭 연동 기능 (체크박스 강제 활성화)
+    function selectRigging(authorId) {
+        const radio = document.getElementById(authorId);
+        if(radio) {
+            radio.checked = true;
+            displayCalc();
+        }
+    }
+
+    // 수량 변경 관리 및 UI 갱신
+    function changeQty(id, amount) {
+        const input = document.getElementById(id);
+        let currentVal = parseInt(input.value) || 0;
+        currentVal += amount;
+        if(currentVal < 0) currentVal = 0;
+        input.value = currentVal;
+        
+        displayCalc();
+    }
+
+    // 합계 금액 연산 및 출력 전담
+    function displayCalc() {
+        const qtyA = parseInt(document.getElementById('typeA').value) || 0;
+        const qtyB = parseInt(document.getElementById('typeB').value) || 0;
+        const qtyExp = parseInt(document.getElementById('optExpression').value) || 0;
+        const qtyOut = parseInt(document.getElementById('optOutfit').value) || 0;
+
+        let total = (qtyA * prices.typeA) + (qtyB * prices.typeB) + (qtyExp * prices.typeExpression) || (qtyExp * 20000) + (qtyOut * prices.typeOutfit);
+        
+        // 고정 오류 교정 로직 포함 계산 유연화
+        total = (qtyA * 150000) + (qtyB * 500000) + (qtyExp * 20000) + (qtyOut * 100000);
+
+        // 연계 할인 연산
+        const radioA1 = document.getElementById('author1');
+        const radioA2 = document.getElementById('author2');
+
+        if(radioA1 && radioA1.checked) {
+            // 모션작가 A: 일러스트 5만원 할인 (A타입이 1개 이상 있을 때 유효)
+            if(qtyA > 0) {
+                total -= 50000;
+            }
+        } else if(radioA2 && radioA2.checked) {
+            // 모션작가 B: 전체 금액의 10% 할인
+            total = Math.floor(total * 0.9);
+        }
+
+        if(total < 0) total = 0;
+
+        document.getElementById('total-display').textContent = total.toLocaleString() + "원";
+        updatePreview(); // 계산기 변경 시 미리보기 자동 연계
+    }
+
+    // 양식 전달용 원문 문자열 빌더
+    function buildFormText() {
+        const applicant = document.getElementById('applicant').value || "미작성";
+        const purpose = document.getElementById('purpose').value || "미작성";
+        
+        const qtyA = parseInt(document.getElementById('typeA').value) || 0;
+        const qtyB = parseInt(document.getElementById('typeB').value) || 0;
+        const qtyExp = parseInt(document.getElementById('optExpression').value) || 0;
+        const qtyOut = parseInt(document.getElementById('optOutfit').value) || 0;
+        
+        let selectedType = [];
+        if(qtyA > 0) selectedType.push(`A타입 - 캐릭터 일러스트 (${qtyA}개)`);
+        if(qtyB > 0) selectedType.push(`B타입 - Live2D 버츄얼 원화 (${qtyB}개)`);
+        
+        let selectedOpts = [];
+        if(qtyExp > 0) selectedOpts.push(`표정 추가 (${qtyExp}개)`);
+        if(qtyOut > 0) selectedOpts.push(`의상 및 헤어 추가 (${qtyOut}개)`);
+
+        const radioA1 = document.getElementById('author1');
+        const radioA2 = document.getElementById('author2');
+        let riggingPartner = "선택 없음";
+        if(radioA1 && radioA1.checked) riggingPartner = "모션 작가 A 연계 (일러스트 5만원 할인)";
+        if(radioA2 && radioA2.checked) riggingPartner = "모션 작가 B 연계 (총액 10% 할인)";
+
+        const totalPrice = document.getElementById('total-display').textContent;
+
+        let resultText = "=== 커미션 신청서 양식 ===\n\n";
+        resultText += `1. 신청자 닉네임 / 입금자명 : ${applicant}\n`;
+        resultText += `2. 신청 타입 : ${selectedType.length > 0 ? selectedType.join(', ') : "선택하지 않음"}\n`;
+        resultText += `3. 추가 옵션 : ${selectedOpts.length > 0 ? selectedOpts.join(', ') : "선택하지 않음"}\n`;
+        resultText += `4. 리깅 협업 작가 연계 : ${riggingPartner}\n`;
+        resultText += `5. 계산된 예상 견적액 : ${totalPrice}\n\n`;
+        resultText += "6. 상세 요청 내용\n";
+        resultText += "----------------------------------------\n";
+        resultText += "사용 목적 (방송, 소장 등) :\n" + purpose + "\n\n";
+        resultText += "캐릭터 성별, 키, 몸매, 외관나이, 성별 등 (컨셉) :\n" + (document.getElementById('concept').value || "미작성") + "\n\n";
+        resultText += "기타 요청사항 :\n" + (document.getElementById('requests').value || "미작성");
+
+        return resultText;
+    }
+
+    // 실시간 미리보기 연동
+    function updatePreview() {
+        const previewBox = document.getElementById('preview-box');
+        previewBox.textContent = buildFormText();
+    }
+
+    // 양식 클립보드 복사
+    function copyForm() {
+        const fullText = buildFormText();
+        navigator.clipboard.writeText(fullText).then(() => {
+            alert("신청 양식이 깨짐 없이 성공적으로 복사되었습니다!\n아트머그 문의 창에 붙여넣기(Ctrl+V) 해주세요.");
+        }).catch(err => {
+            alert("복사에 실패했습니다. 브라우저 환경을 확인해주세요.");
+        });
+    }
+
+    // 초기화 기능
+    function resetForm() {
+        if(confirm("작성한 양식을 모두 초기화하시겠습니까?")) {
+            const inputs = document.querySelectorAll('.qty-input');
+            inputs.forEach(input => input.value = 0);
+            
+            // 라디오버튼 해제
+            const radios = document.querySelectorAll('input[name="rigging_author"]');
+            radios.forEach(radio => radio.checked = false);
+
+            // 텍스트 필드 클리어
+            document.getElementById('applicant').value = "";
+            document.getElementById('purpose').value = "";
+            document.getElementById('concept').value = "";
+            document.getElementById('requests').value = "";
+
+            displayCalc();
+        }
+    }
+
+    // 모달 스크립트 관리
+    function openModal(imgSrc) {
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImg');
+        modal.classList.add('show');
+        modalImg.src = imgSrc;
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('imageModal');
+        modal.classList.remove('show');
+    }
+</script>
+
+</body>
+</html>
