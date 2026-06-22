@@ -1,1 +1,68 @@
-
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>레레 작가 커미션</title>
+    <style>
+        /* === 기본 스타일 & 폰트 === */
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Pretendard', -apple-system, 'Malgun Gothic', sans-serif; }
+        body { background-color: #f7f7f7; color: #333; line-height: 1.6; font-size: 16px; }
+        
+        /* === 레이아웃 === */
+        .container { max-width: 1200px; margin: 0 auto; background-color: #fff; padding: 40px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .section { margin-bottom: 60px; }
+        h2 { font-size: 26px; margin-bottom: 25px; padding-bottom: 10px; border-bottom: 2px solid #333; color: #111; }
+        .sub-notice { font-size: 16px; color: #666; font-weight: normal; margin-left: 10px; display: inline-block; vertical-align: bottom; }
+        
+        /* 카테고리 타이틀 디자인 */
+        h3.category-title { font-size: 22px; margin: 40px 0 10px 0; color: #111; position: relative; padding-bottom: 8px; display: inline-block; }
+        h3.category-title::after { content: ''; position: absolute; left: 0; bottom: 0; width: 100%; height: 3px; background-color: #333; }
+        .category-subtitle { font-size: 16px; color: #555; margin-bottom: 20px; display: block; font-weight: 500; }
+        
+        /* === 프로필 및 헤더 (왼쪽 정렬 및 프사 영역 구조) === */
+        .header { display: flex; align-items: center; gap: 30px; margin-bottom: 30px; padding: 40px; background-color: #fafafa; border-radius: 8px; text-align: left; }
+        .profile-img-box { width: 120px; height: 120px; min-width: 120px; border-radius: 50%; background-color: #e4e4e4; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 1px solid #ddd; }
+        .profile-img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .header-info { flex-grow: 1; }
+        .header h1 { font-size: 34px; font-weight: bold; margin-bottom: 15px; color: #111; }
+        /* 소개말 줄바꿈 및 간격 최적화 */
+        .header p { font-size: 17px; color: #444; line-height: 1.6; word-break: keep-all; white-space: normal; }
+        
+        /* === 독립된 작업 슬롯 섹션 === */
+        .independent-slots { padding: 25px; background-color: #fafafa; border: 1px solid #eaeaea; border-radius: 8px; }
+        .slots-main-title { font-size: 24px; font-weight: bold; color: #111; margin-bottom: 20px; }
+        .slots-container { display: flex; justify-content: flex-start; gap: 45px; flex-wrap: wrap; }
+        .month-group { text-align: center; }
+        .month-title { font-weight: bold; margin-bottom: 12px; font-size: 17px; color: #333; }
+        .slot-dots { display: flex; gap: 12px; justify-content: center; }
+        .dot { width: 54px; height: 54px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 15px; font-weight: bold; color: #555; background-color: #eee; border: 1px solid #ccc; }
+        .dot.closed { background-color: #444; color: #fff; border-color: #444; } /* 마감 슬롯 */
+        
+        /* === 리스트 (공지사항 & 작업과정) === */
+        ul.notice-list { list-style: none; padding: 0; }
+        ul.notice-list li { margin-bottom: 12px; padding-left: 15px; position: relative; color: #333; font-size: 17px; }
+        ul.notice-list li::before { content: "·"; position: absolute; left: 0; top: 0; font-weight: bold; font-size: 18px; }
+        
+        /* 작업과정 차분한 색상 강조 */
+        .process-flow { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; align-items: center; background: #f4f4f4; padding: 25px; border-radius: 8px; font-weight: bold; color: #333; font-size: 16px; }
+        .process-step { display: inline-flex; align-items: center; background: #fff; padding: 8px 16px; border-radius: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); border: 1px solid #ddd; color: #555; }
+        .process-step.highlight { background-color: #4f5d65; color: #fff; border-color: #4f5d65; } /* 차분한 톤다운 스톤그레이 */
+        .process-step.highlight-final { background-color: #8e2424; color: #fff; border-color: #8e2424; } /* 은은한 딥레드 */
+        .process-arrow { margin: 0 5px; color: #bbb; font-size: 14px; }
+        
+        /* === 판매모델 === */
+        .model-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .model-item { background: #fff; border: 1px solid #eaeaea; border-radius: 8px; padding: 15px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.03); transition: transform 0.2s; }
+        .model-item:hover { transform: translateY(-5px); }
+        .model-thumb-box { width: 100%; aspect-ratio: 3 / 4; background-color: #e4e4e4; border-radius: 6px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; color: #888; font-size: 15px; overflow: hidden; position: relative; cursor: pointer; }
+        .model-item img { width: 100%; height: 100%; object-fit: cover; position: absolute; left: 0; top: 0; }
+        .model-item h4 { font-size: 19px; margin-bottom: 6px; color: #111; font-weight: bold; }
+        .model-price-tag { font-size: 17px; font-weight: bold; color: #8e2424; margin-bottom: 10px; display: block; } /* 차분한 레드 */
+        .model-item p { font-size: 16px; color: #555; margin-bottom: 15px; line-height: 1.6; }
+        .btn-link { display: inline-block; padding: 10px 20px; background-color: #222; color: #fff; text-decoration: none; border-radius: 4px; font-size: 15px; font-weight: bold; transition: background 0.2s; width: 100%; box-sizing: border-box; }
+        .btn-link:hover { background-color: #000; }
+        
+        /* === 포트폴리오 === */
+        .portfolio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .portfolio-item { width: 100%; aspect-ratio: 3 / 4; background-color: #e4e4e4; border-radius: 8px; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center; color: #888; font
