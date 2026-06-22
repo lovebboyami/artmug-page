@@ -113,7 +113,11 @@
         .rigging-card:hover { transform: translateY(-5px); }
         .rigging-thumb-box-static { width: 100%; aspect-ratio: 3 / 4; background-color: #e4e4e4; border-radius: 6px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; color: #888; font-size: 15px; overflow: hidden; position: relative; }
         .rigging-card img { width: 100%; height: 100%; object-fit: cover; position: absolute; left: 0; top: 0; }
-        
+        .rigging-card.selected-rigging {
+            border: 3px solid #8e2424;
+            background-color: #fff7f7;
+            box-shadow: 0 0 0 3px rgba(142,36,36,0.12);
+        }
         .rigging-info h4 { font-size: 19px; margin-bottom: 6px; color: #111; font-weight: bold; }
         
         /* 작가 카드 내 태그 그룹 구조 변경 (이름 밑으로 배치) */
