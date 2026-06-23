@@ -649,9 +649,14 @@
     document.addEventListener('DOMContentLoaded', function(){
     const img=document.getElementById('galleryImage');
     let isDown=false;
+    let moved=false;
     let startX,startY,scrollLeft,scrollTop;
     
     img.addEventListener('click',function(){
+    if(moved) {
+    moved=false;
+    return;
+    }
     this.classList.toggle('zoomed');
     });
     
@@ -661,6 +666,7 @@
     if(!this.classList.contains('zoomed')) return;
     e.preventDefault();
     isDown=true;
+    moved=false;
     this.parentElement.style.cursor='grabbing';
     startX=e.pageX-this.parentElement.offsetLeft;
     startY=e.pageY-this.parentElement.offsetTop;
@@ -680,6 +686,7 @@
     img.parentElement.addEventListener('mousemove',function(e){
     if(!isDown) return;
     e.preventDefault();
+    if(Math.abs(e.movementX)>2 || Math.abs(e.movementY)>2) moved=true;
     const x=e.pageX-this.offsetLeft;
     const y=e.pageY-this.offsetTop;
     this.scrollLeft=scrollLeft-(x-startX);
