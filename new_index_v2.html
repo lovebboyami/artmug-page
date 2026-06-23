@@ -134,6 +134,7 @@
     /* 리깅 협업 작가 (상단 3열) */
     .rigging-wrap { margin-bottom: 30px; }
     .rigging-desc { font-size: 14px; color: var(--text-light); margin-left: 10px; font-weight: 400; }
+    .rigging-callout{display:flex;align-items:center;gap:10px;background:#f8f9fa;border-radius:16px;padding:14px 18px;margin:12px 0 20px;font-size:14px;color:#666;}
     .rigging-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
     .rigging-card { background: #fff; border: 2px solid var(--border); border-radius: var(--radius); overflow: hidden; position: relative; cursor: pointer; transition: 0.2s; }
     .rigging-card.selected { border-color: var(--point); background: #fff8fa; }
@@ -362,8 +363,9 @@
         <h2>단가 및 옵션 선택</h2>
         
         <div class="rigging-wrap">
-            <div class="option-group-title">⚙️ 리깅 (협업)
-                <span class="rigging-desc">협업 작가에게 리깅 신청 시 추가 혜택 제공! 리깅은 협업 작가에게 따로 신청해주세요!</span>
+            <div class="option-group-title">⚙️ 리깅 (협업)</div>
+            <div class="rigging-callout">
+                📢 협업 작가에게 리깅 신청 시 추가 혜택이 제공됩니다. 리깅은 협업 작가님께 별도로 신청해주세요.
             </div>
             <div class="rigging-grid">
                 <div class="rigging-card" onclick="toggleRigging(this)" data-name="리깅 협업 작가 (해시시 님)">
