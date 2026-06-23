@@ -86,6 +86,7 @@
     .process-arrow { color: #adb5bd; font-weight: bold; }
 
     /* [판매모델] & [포트폴리오] 갤러리 */
+    .zoom-icon { position:absolute; top:12px; right:12px; width:36px; height:36px; display:flex; justify-content:center; align-items:center; background:rgba(255,255,255,0.85); border-radius:50%; font-size:18px; color:#222; box-shadow:0 2px 8px rgba(0,0,0,0.15); pointer-events:none; }
     .gallery-subtitle { font-size: 14px; color: var(--text-light); font-weight: 400; margin-left: 10px; }
     .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
     .card { background: var(--gray-bg); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); transition: 0.3s; }
@@ -281,6 +282,7 @@
             <div class="card">
                 <div class="card-thumb" onclick="openGallery(['model_sample1.jpg','model_sample1_1.jpg'])">
                     <img src="model_sample1.jpg" alt="판매모델">
+                    <div class="zoom-icon">⌕</div>
                 </div>
     
                 <div class="card-info">
