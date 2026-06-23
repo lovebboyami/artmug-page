@@ -47,9 +47,11 @@
         word-break: keep-all;
     }
     .container {
+        width: 100%;
         max-width: 1200px;
         margin: 0 auto;
         padding: 40px 20px;
+        overflow-x: hidden;
     }
 
     /* 공통 스타일 */
@@ -100,7 +102,10 @@
     .modal-gallery.active { display:flex; }
     .modal-content { position:relative; width:95vw; height:95vh; display:flex; justify-content:center; align-items:center; overflow:auto; }
     .modal-content img { max-width:none; max-height:none; width:auto; height:auto; cursor:zoom-in; }
-    .modal-content img.zoomed { width:150%; max-width:150%; cursor:zoom-out; }
+    .modal-content img.zoomed {
+        transform: scale(1.8);
+        cursor: zoom-out;
+    }
     .modal-close { position:absolute; top:-50px; right:0; color:#fff; font-size:40px; cursor:pointer; }
     .modal-prev,.modal-next { position:absolute; top:50%; transform:translateY(-50%); color:#fff; font-size:50px; cursor:pointer; user-select:none; padding:20px; }
     .modal-counter {
@@ -201,7 +206,9 @@
         display: block;
         margin-left: 0;
         margin-top: 4px;
+        }
     }
+        
 </style>
 </head>
 <body>
@@ -283,22 +290,26 @@
 
     <div class="section">
         <h2>판매모델</h2>
+    
         <div class="gallery-grid">
+    
             <div class="card">
                 <div class="card-thumb" onclick="openGallery(['model_sample1.jpg','model_sample1_1.jpg'])">
                     <img src="model_sample1.jpg" alt="판매모델">
                 </div>
+    
                 <div class="card-info">
                     <h4>판매모델 1</h4>
                     <p>1,000,000원</p>
                     <p>일러스트 : 레레 / 리깅 : 홍길동</p>
                     <a href="유튜브링크" target="_blank" class="yt-btn">리깅 바로보기</a>
                 </div>
-                </div>
             </div>
-            </div>
+    
+        </div>
+    
     </div>
-
+    
     <div class="section">
         <h2>포트폴리오 <span class="gallery-subtitle">내려갈 수록 오래된 작업 입니다.</span></h2>
         <div class="gallery-grid">
@@ -308,13 +319,13 @@
                     <div class="client-name">앗슈산제 님</div>
                 </div>
             </div>
-            <div class="card">
-                <div class="card-thumb" onclick="openGallery(['portfolio2.jpg','portfolio2_1.jpg'])">
-                    <img src="portfolio2.jpg" alt="포트폴리오">
-                    <div class="client-name">이응 님</div>
-                </div>
-            </div>
-            </div>
+    <div class="card">
+        <div class="card-thumb" onclick="openGallery(['portfolio2.jpg','portfolio2_1.jpg'])">
+            <img src="portfolio2.jpg" alt="포트폴리오">
+            <div class="client-name">이응 님</div>
+        </div>
+    </div>
+    
     </div>
 
     <div class="section">
