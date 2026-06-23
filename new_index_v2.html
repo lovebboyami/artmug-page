@@ -70,7 +70,7 @@
 
     /* [작업 슬롯] */
     .slot-notice { font-size: 14px; color: var(--text-light); margin-left: 10px; font-weight: 400; }
-    .slot-grid { display: flex; flex-wrap: wrap; gap: 20px; }
+    .slot-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:20px; }
     .slot-month { background: var(--gray-bg); padding: 20px; border-radius: var(--radius); flex: 1; min-width: 150px; text-align: center; }
     .slot-month h3 { font-size: 18px; margin-bottom: 15px; }
     .slot-items { display: flex; flex-direction: column; gap: 10px; align-items: center; }
@@ -185,6 +185,7 @@
 
     /* 모바일 반응형 */
     @media (max-width: 768px) {
+        .slot-grid { grid-template-columns:repeat(2,1fr); }
         .modal-content { align-items:center; }
         .gallery-grid, .rigging-grid, .options-grid, .form-wrap { grid-template-columns:1fr; }
         .profile-wrap { flex-direction:column; text-align:center; }
