@@ -690,6 +690,25 @@
 </div>
 
 <script>
+    // 키보드 사용 가능
+    document.addEventListener('keydown', function(e){
+        const modal = document.getElementById('galleryModal');
+    
+        if(!modal.classList.contains('active')) return;
+    
+        if(e.key === 'ArrowLeft') {
+            prevImage();
+        }
+    
+        if(e.key === 'ArrowRight') {
+            nextImage();
+        }
+    
+        if(e.key === 'Escape') {
+            closeGallery();
+        }
+    });
+    
     // 인라인 확장 뷰어 토글
     let galleryImages = [];
     let currentImage = 0;
