@@ -92,7 +92,7 @@
     .card-thumb { position: relative; cursor: pointer; aspect-ratio: 3/4; overflow: hidden; }
     .card-thumb img { width: 100%; height: 100%; object-fit: cover; object-position:top; transition: 0.3s; }
     .card-thumb:hover img { transform: scale(1.05); }
-    .card-info { padding:15px; text-align:left; }
+    .card-info { padding:15px; text-align:center; } .card-info h4 { font-size:20px; margin-bottom:12px; } .creator-tags { display:flex; justify-content:center; flex-wrap:wrap; gap:6px; margin-bottom:15px; } .creator-tag { display:inline-block; padding:5px 12px; background:#f8f9fa; color:#666; border:1px solid var(--border); border-radius:999px; font-size:13px; font-weight:600; } .model-price { font-size:24px; font-weight:700; color:var(--point); margin:15px 0; text-align:center; }
     .card-info h4 { font-size: 18px; margin-bottom: 5px; }
     .card-info p { font-size: 14px; color: var(--text-light); margin-bottom: 10px; }
     .yt-btn { display:inline-block; padding:8px 16px; background:var(--text); color:#fff; text-decoration:none; border-radius:20px; font-size:13px; font-weight:bold; margin-top:12px; }
@@ -278,10 +278,11 @@
     
                 <div class="card-info">
                     <h4>모모카</h4>
-                    <div class="creator-info">art @레레<br>rig @OOO</div>
-                    <a href="https://www.youtube.com/" target="_blank" class="yt-btn">움직임 보기</a>
+                        <div class="creator-tags">
+                            <span class="creator-tag">ART @레레</span><span class="creator-tag">RIG @홍길동</span>
+                        </div>
                     <div class="model-price">1,000,000원</div>
-                </div>
+                    <a href="https://www.youtube.com/" target="_blank" class="yt-btn">움직임 보기</a></div>
             </div>
     
         </div>
