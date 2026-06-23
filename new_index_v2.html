@@ -117,8 +117,8 @@
     padding:10px 20px;
     border-radius:999px;
     }
-    .modal-prev { left:30px; }
-    .modal-next { right:30px; left:auto; }
+    .modal-prev { left:calc(50% - 95px); }
+    .modal-next { right:auto; left:calc(50% + 55px); }
 
     /* 단가 및 옵션 선택 */
     /* 리깅 협업 작가 (상단 3열) */
@@ -627,7 +627,9 @@
     }
     
     function updateGallery() {
-        document.getElementById('galleryImage').src = galleryImages[currentImage];
+        const img = document.getElementById('galleryImage');
+        img.classList.remove('zoomed');
+        img.src = galleryImages[currentImage];
         document.getElementById('galleryCounter').innerText = (currentImage + 1) + ' / ' + galleryImages.length;
     }
     
