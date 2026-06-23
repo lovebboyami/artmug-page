@@ -183,7 +183,11 @@
         margin-top: 4px;
         }
     }
-        
+
+    .gallery-thumbs { position:fixed; bottom:80px; left:50%; transform:translateX(-50%); display:flex; gap:10px; z-index:10; }
+    .gallery-thumbs img { width:60px; height:80px; object-fit:cover; border-radius:8px; cursor:pointer; opacity:0.6; border:2px solid transparent; }
+    .gallery-thumbs img.active { opacity:1; border-color:#ff8fa3; }
+    
 </style>
 </head>
 <body>
@@ -601,8 +605,9 @@
 <div class="modal-gallery" id="galleryModal">
     <div class="modal-content">
         <span class="modal-close" onclick="closeGallery()">×</span>
-        <span class="modal-prev" onclick="prevImage()">❮</span>
         <img id="galleryImage">
+        <div class="gallery-thumbs" id="galleryThumbs"></div>
+        <span class="modal-prev" onclick="prevImage()">❮</span>
         <span class="modal-next" onclick="nextImage()">❯</span>
         <div class="modal-counter" id="galleryCounter"></div>
     </div>
@@ -616,6 +621,7 @@
     function openGallery(images) {
         galleryImages = images;
         currentImage = 0;
+        createThumbs();
         updateGallery();
         document.getElementById('galleryModal').classList.add('active');
         document.body.style.overflow = 'hidden';
@@ -631,6 +637,10 @@
         img.classList.remove('zoomed');
         img.src = galleryImages[currentImage];
         document.getElementById('galleryCounter').innerText = (currentImage + 1) + ' / ' + galleryImages.length;
+    
+        document.querySelectorAll('.gallery-thumbs img').forEach((thumb,index)=>{
+            thumb.classList.toggle('active', index === currentImage);
+        });
     }
     
     function prevImage() {
@@ -649,6 +659,21 @@
         currentImage++;
         if(currentImage >= galleryImages.length) currentImage = 0;
         updateGallery();
+    }
+
+    function createThumbs(){
+        const box = document.getElementById('galleryThumbs');
+        box.innerHTML = '';
+    
+        galleryImages.forEach((src,index)=>{
+            const img = document.createElement('img');
+            img.src = src;
+            img.onclick = function(){
+                currentImage = index;
+                updateGallery();
+            };
+            box.appendChild(img);
+        });
     }
 
     // 리깅 작가 선택 토글
