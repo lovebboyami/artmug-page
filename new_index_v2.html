@@ -97,14 +97,22 @@
     .client-name { position: absolute; bottom: 10px; left: 10px; background: rgba(0,0,0,0.6); color: #fff; padding: 4px 10px; border-radius: var(--radius-sm); font-size: 13px; pointer-events: none; }
 
     /* 인라인 확장 뷰어 */
-    .card.expanded { grid-column: 1 / -1; display: flex; flex-direction: column; background: var(--gray-bg); }
-    .card.expanded .card-thumb, .card.expanded .card-info { display: none; }
-    .full-view { display: none; padding: 20px; text-align: center; cursor: pointer; }
-    .card.expanded .full-view { display: block; }
-    .close-btn { background: var(--text); color: #fff; border: none; padding: 10px 20px; border-radius: 30px; font-size: 15px; font-weight: bold; cursor: pointer; margin-bottom: 20px; font-family: inherit; }
-    .close-btn:hover { background: #000; }
-    .full-view img { max-width: 100%; height: auto; border-radius: var(--radius-sm); margin-bottom: 15px; }
-
+    .portfolio-modal { position: fixed; inset: 0; background: rgba(255,255,255,0.96); backdrop-filter: blur(6px); z-index: 9999; display: none; align-items: center; justify-content: center; }
+    
+    .portfolio-modal.active { display: flex; }
+    
+    .portfolio-modal-content { width: min(95vw, 1200px); text-align: center; }
+    
+    .portfolio-modal img { max-width: 100%; max-height: 80vh; object-fit: contain; border-radius: 12px; }
+    
+    .modal-close { position: fixed; top: 20px; right: 20px; font-size: 28px; cursor: pointer; }
+    
+    .modal-nav { margin-top: 15px; display: flex; justify-content: center; gap: 20px; }
+    
+    .modal-btn { cursor: pointer; padding: 8px 16px; border: 1px solid #ddd; border-radius: 999px; background: white; }
+    
+    .modal-counter { margin-top: 10px; color: #888; font-size: 14px; }
+    
     /* 단가 및 옵션 선택 */
     /* 리깅 협업 작가 (상단 3열) */
     .rigging-wrap { margin-bottom: 30px; }
@@ -733,5 +741,19 @@ function toggleExpand(element) {
     // 초기 계산 실행
     calc();
 </script>
+<div id="portfolioModal" class="portfolio-modal">
+    <div class="modal-close" onclick="closePortfolioModal()">✕</div>
+
+    <div class="portfolio-modal-content">
+        <img id="modalImage" src="" alt="portfolio">
+
+        <div class="modal-nav">
+            <button class="modal-btn" onclick="prevImage()">◀ 이전</button>
+            <button class="modal-btn" onclick="nextImage()">다음 ▶</button>
+        </div>
+
+        <div id="modalCounter" class="modal-counter"></div>
+    </div>
+</div>
 </body>
 </html>
