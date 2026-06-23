@@ -30,632 +30,666 @@
         --bg: #ffffff;
         --text: #222222;
         --text-light: #666666;
-        --border: #eeeeee;
-        --radius-lg: 16px;
-        --radius-md: 12px;
-        --radius-sm: 6px;
-        
-        /* 메인 및 포인트 컬러 */
-        --point: #ff5d7d;
-        --point-hover: #ff3b61;
+        --point: #ff8fa3; /* 따뜻한 분홍색 */
         --point-light: #fff0f3;
+        --gray-bg: #f8f9fa;
+        --border: #e9ecef;
+        --radius: 16px;
+        --radius-sm: 8px;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Pretendard', sans-serif; letter-spacing: -0.3px; }
-    body { background-color: #f8f9fa; color: var(--text); line-height: 1.5; padding: 20px 10px; }
-    
-    /* 메인 컨테이너 (최대 가로폭 1200px 제한 및 모바일 우선 반응형) */
-    .container { max-width: 1200px; margin: 0 auto; background: var(--bg); border-radius: var(--radius-lg); box-shadow: 0 4px 20px rgba(0,0,0,0.03); padding: 40px 30px; }
-
-    /* 헤더 / 프로필 영역 */
-    .header { display: flex; align-items: center; gap: 24px; padding-bottom: 30px; border-bottom: 1px solid var(--border); margin-bottom: 35px; }
-    .profile-img { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border); }
-    .profile-info h1 { font-size: 24px; font-weight: 700; margin-bottom: 6px; color: var(--text); }
-    .profile-info p { font-size: 14px; color: var(--text-light); line-height: 1.4; white-space: pre-wrap; }
-
-    /* 공통 섹션 스타일 */
-    .section { margin-bottom: 45px; }
-    .section h2 { font-size: 19px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; color: var(--text); }
-    .section h2::before { content: ''; display: inline-block; width: 4px; height: 18px; background: var(--point); border-radius: 2px; }
-
-    /* 작업 슬롯 현황 디자인 */
-    .slot-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1px)); gap: 12px; margin-bottom: 12px; }
-    .slot-box { background: #fafafa; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 16px; text-align: center; }
-    .slot-month { font-size: 15px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
-    .slot-status { display: inline-block; padding: 4px 12px; font-size: 12px; font-weight: 600; border-radius: 20px; }
-    .slot-status.open { background: #e8f5e9; color: #2e7d32; }
-    .slot-status.closed { background: #ffebee; color: #c62828; }
-    .slot-desc { font-size: 13px; color: var(--text-light); }
-
-    /* 중요 UI 규칙: 내용별 태그 개별 색상 지정 */
-    .tag { display: inline-block; padding: 4px 10px; font-size: 13px; font-weight: 600; border-radius: var(--radius-sm); margin-right: 5px; margin-bottom: 5px; }
-    .tag.t-pink { background: #ffe3e8; color: #ff5d7d; }       /* [일러 할인] 연핑크 */
-    .tag.t-dpink { background: #ffccd5; color: #ff0055; }      /* [리깅 할인] 진분홍 */
-    .tag.t-purple { background: #f3e5f5; color: #8e24aa; }     /* [무료 표정] 보라톤 */
-    .tag.t-blue { background: #e3f2fd; color: #1e88e5; }       /* [협업용] 블루톤 */
-
-    /* 리깅 협업 작가 섹션 (PC 3열 / 모바일 2열) */
-    .rigging-grid { display: grid; grid-template-columns: repeat(3, 1px); gap: 20px; }
-    .rigging-card { background: #ffffff; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 20px; position: relative; cursor: pointer; transition: all 0.2s ease; display: flex; flex-direction: column; }
-    .rigging-card:hover { border-color: #ddd; transform: translateY(-2px); }
-    
-    /* 중요 UI 규칙: 레이아웃 밀림 방지용 inset 스타일 및 명확한 선택 상태 구현 */
-    .rigging-card.selected { border-color: #ff8fa3; background: #fff0f3; box-shadow: inset 0 0 0 2px #ff8fa3; }
-    .rigging-card.selected .rigging-info { color: #222222; font-weight: 700; }
-
-    /* 리깅 카드 내 체크박스 절대 좌표 배치 */
-    .rigging-checkbox-wrap { position: absolute; right: 18px; top: 18px; z-index: 5; }
-    .rigging-checkbox { width: 18px; height: 18px; accent-color: var(--point); cursor: pointer; }
-    .rigging-thumb { width: 100%; height: 140px; object-fit: cover; border-radius: var(--radius-sm); margin-bottom: 12px; background: #f0f0f0; }
-    .rigging-tags { min-height: 26px; margin-bottom: 4px; }
-    .rigging-info { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 10px; }
-    .rigging-btn { width: 100%; padding: 8px; background: #f1f3f5; border: none; border-radius: var(--radius-sm); font-size: 13px; font-weight: 600; color: var(--text-light); cursor: pointer; transition: background 0.15s; margin-top: auto; text-align: center; text-decoration: none; }
-    .rigging-btn:hover { background: #e9ecef; color: var(--text); }
-
-    /* 포트폴리오 갤러리 영역 */
-    .portfolio-grid { display: grid; grid-template-columns: repeat(3, 1px); gap: 15px; }
-    .portfolio-item { position: relative; aspect-ratio: 16 / 9; border-radius: var(--radius-md); overflow: hidden; cursor: pointer; border: 1px solid var(--border); background: #fafafa; }
-    .portfolio-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
-    .portfolio-item:hover img { transform: scale(1.03); }
-
-    /* 정밀 수정된 작업 과정 섹션 */
-    .process-wrap { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; background: #fafafa; border-radius: var(--radius-md); padding: 20px; border: 1px solid var(--border); }
-    .process-step { flex: 1; min-width: 100px; text-align: center; padding: 12px 8px; background: #ffffff; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 13px; font-weight: 600; color: var(--text-light); }
-    .process-arrow { color: #ccc; font-weight: bold; font-size: 14px; }
-    /* 컨펌 및 완료 단계 시각적 보완 강조 */
-    .process-step.highlight { border-color: var(--point); color: var(--point); background: var(--point-light); }
-    .process-step.done { background: var(--point); color: #ffffff; border-color: var(--point); }
-
-    /* 단가 및 옵션 계산기 디자인 */
-    .option-group { border: 1px solid var(--border); border-radius: var(--radius-md); padding: 20px; margin-bottom: 20px; }
-    .option-group-title { font-size: 15px; font-weight: 700; margin-bottom: 15px; color: var(--text); padding-bottom: 8px; border-bottom: 1px solid #f5f5f5; }
-    .options-grid { display: flex; flex-direction: column; gap: 10px; }
-    .opt-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border: 1px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; transition: all 0.15s ease; background: #ffffff; }
-    .opt-row:hover { border-color: #ddd; }
-    
-    /* 옵션 선택 상태 inset 테두리 및 명확성 구현 */
-    .opt-row.active { border-color: #ff8fa3; background: #fff0f3; box-shadow: inset 0 0 0 2px #ff8fa3; }
-    .opt-row.active .opt-name { color: #222222; font-weight: 700; }
-
-    .opt-info { display: flex; flex-direction: column; gap: 2px; flex: 1; }
-    .opt-name { font-size: 14px; font-weight: 600; color: var(--text); display: flex; align-items: center; flex-wrap: wrap; }
-    .opt-price { font-size: 14px; font-weight: 700; color: var(--point); margin-top: 2px; }
-    .opt-sub-desc { display: block; font-size: 12px; color: #888888; margin-top: 4px; font-weight: 400; }
-    
-    /* 수량 조절 인터페이스 */
-    .opt-controls { display: flex; align-items: center; border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; background: #ffffff; height: 32px; }
-    .opt-btn { width: 32px; height: 100%; background: #ffffff; border: none; font-size: 16px; font-weight: 600; cursor: pointer; color: var(--text-light); display: flex; align-items: center; justify-content: center; }
-    .opt-btn:hover { background: #f8f9fa; color: var(--text); }
-    .opt-input { width: 40px; height: 100%; border: none; border-left: 1px solid var(--border); border-right: 1px solid var(--border); text-align: center; font-size: 13px; font-weight: 600; color: var(--text); outline: none; }
-
-    /* 하단 레이아웃 (실시간 계산기 + 신청 양식 작성) */
-    .bottom-layout { display: grid; grid-template-columns: 4.5fr 5.5fr; gap: 25px; align-items: start; }
-    .sticky-box { position: sticky; top: 20px; display: flex; flex-direction: column; gap: 20px; }
-    
-    .price-box { background: #fafafa; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 24px; }
-    .price-title { font-size: 15px; font-weight: 700; margin-bottom: 12px; color: var(--text); }
-    .price-total { font-size: 26px; font-weight: 700; color: var(--point); }
-
-    .form-box { border: 1px solid var(--border); border-radius: var(--radius-md); padding: 24px; background: #ffffff; }
-    .form-box h3 { font-size: 15px; font-weight: 700; margin-bottom: 16px; color: var(--text); }
-    .form-group { margin-bottom: 14px; }
-    .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: var(--text-light); }
-    .form-control { width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 13px; outline: none; transition: border-color 0.15s; color: var(--text); }
-    .form-control:focus { border-color: var(--point); }
-    textarea.form-control { resize: none; height: 75px; }
-
-    .preview-box { border: 1px solid var(--border); border-radius: var(--radius-md); padding: 20px; background: #fafafa; margin-top: 15px; }
-    .preview-title { font-size: 13px; font-weight: 700; margin-bottom: 8px; color: var(--text-light); }
-    .preview-area { background: #ffffff; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px; font-size: 13px; color: #333333; min-height: 120px; white-space: pre-wrap; font-family: monospace; line-height: 1.45; }
-    
-    .action-btn { width: 100%; padding: 12px; border: none; border-radius: var(--radius-sm); font-size: 14px; font-weight: 700; cursor: pointer; transition: background 0.15s; text-align: center; margin-top: 12px; }
-    .btn-primary { background: var(--point); color: #ffffff; }
-    .btn-primary:hover { background: var(--point-hover); }
-    .btn-secondary { background: #f1f3f5; color: var(--text-light); }
-    .btn-secondary:hover { background: #e9ecef; color: var(--text); }
-
-    /* 대형 스크롤 고화질 모달 팝업 */
-    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000; justify-content: center; align-items: flex-start; overflow-y: auto; padding: 40px 10px; }
-    .modal-content { width: 100%; max-width: 1400px; height: auto; object-fit: initial; border-radius: var(--radius-md); background: #000; }
-    .modal-close { position: fixed; right: 25px; top: 25px; color: #ffffff; font-size: 32px; font-weight: bold; cursor: pointer; z-index: 1010; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.3); border-radius: 50%; }
-
-    /* 모바일 및 태블릿 대응 미디어 쿼리 */
-    @media (max-width: 992px) {
-        .bottom-layout { grid-template-columns: 1fr; }
-        .sticky-box { position: static; }
-        .rigging-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+        font-family: 'Pretendard', sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        word-break: keep-all;
     }
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+    }
+
+    /* 공통 스타일 */
+    h2 { font-size: 24px; font-weight: 700; margin-bottom: 20px; color: var(--text); padding-bottom: 10px; border-bottom: 2px solid var(--border); }
+    .section { margin-bottom: 60px; }
+    .tag { display: inline-block; padding: 4px 10px; background: var(--point-light); color: var(--point); font-size: 13px; font-weight: 600; border-radius: var(--radius-sm); margin-right: 5px; margin-bottom: 5px; }
+    .tag-discount { background: #ffe8ec; color: #e64980; }
+    .tag-free { background: #edf7ed; color: #2b8a3e; }
+    .desc-text { color: var(--point); font-size: 14px; font-weight: 400; margin-left: 8px; }
+
+    /* [작가 소개] */
+    .profile-wrap { display: flex; align-items: center; gap: 24px; background: var(--gray-bg); padding: 30px; border-radius: var(--radius); }
+    .profile-img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border); }
+    .profile-info h1 { font-size: 28px; margin-bottom: 10px; }
+    .profile-info p { font-size: 16px; color: var(--text-light); }
+
+    /* [작업 슬롯] */
+    .slot-notice { font-size: 14px; color: var(--text-light); margin-left: 10px; font-weight: 400; }
+    .slot-grid { display: flex; flex-wrap: wrap; gap: 20px; }
+    .slot-month { background: var(--gray-bg); padding: 20px; border-radius: var(--radius); flex: 1; min-width: 150px; text-align: center; }
+    .slot-month h3 { font-size: 18px; margin-bottom: 15px; }
+    .slot-items { display: flex; flex-direction: column; gap: 10px; align-items: center; }
+    .slot-badge { width: 100%; padding: 8px 0; border-radius: 20px; font-size: 14px; font-weight: 600; }
+    .slot-badge.open { background: #e9ecef; color: var(--text-light); }
+    .slot-badge.closed { background: var(--point); color: #fff; }
+
+    /* [작업 과정] */
+    .process-wrap { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; align-items: center; background: var(--gray-bg); padding: 30px; border-radius: var(--radius); }
+    .process-step { background: #fff; padding: 10px 20px; border-radius: 30px; font-weight: 600; border: 1px solid var(--border); }
+    .process-step.highlight { background: var(--point-light); color: var(--point); border-color: var(--point); }
+    .process-step.done { background: var(--text); color: #fff; border-color: var(--text); }
+    .process-arrow { color: #adb5bd; font-weight: bold; }
+
+    /* [판매모델] & [포트폴리오] 갤러리 */
+    .gallery-subtitle { font-size: 14px; color: var(--text-light); font-weight: 400; margin-left: 10px; }
+    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .card { background: var(--gray-bg); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); transition: 0.3s; }
+    .card-thumb { position: relative; cursor: pointer; aspect-ratio: 3/4; overflow: hidden; }
+    .card-thumb img { width: 100%; height: 100%; object-fit: cover; transition: 0.3s; }
+    .card-thumb:hover img { transform: scale(1.05); }
+    .card-info { padding: 15px; text-align: center; }
+    .card-info h4 { font-size: 18px; margin-bottom: 5px; }
+    .card-info p { font-size: 14px; color: var(--text-light); margin-bottom: 10px; }
+    .yt-btn { display: inline-block; padding: 8px 16px; background: #ff0000; color: #fff; text-decoration: none; border-radius: 20px; font-size: 13px; font-weight: bold; }
+    .client-name { position: absolute; bottom: 10px; left: 10px; background: rgba(0,0,0,0.6); color: #fff; padding: 4px 10px; border-radius: var(--radius-sm); font-size: 13px; pointer-events: none; }
+
+    /* 인라인 확장 뷰어 */
+    .card.expanded { grid-column: 1 / -1; display: flex; flex-direction: column; background: var(--gray-bg); }
+    .card.expanded .card-thumb, .card.expanded .card-info { display: none; }
+    .full-view { display: none; padding: 20px; text-align: center; cursor: pointer; }
+    .card.expanded .full-view { display: block; }
+    .close-btn { background: var(--text); color: #fff; border: none; padding: 10px 20px; border-radius: 30px; font-size: 15px; font-weight: bold; cursor: pointer; margin-bottom: 20px; font-family: inherit; }
+    .close-btn:hover { background: #000; }
+    .full-view img { max-width: 100%; height: auto; border-radius: var(--radius-sm); margin-bottom: 15px; }
+
+    /* 단가 및 옵션 선택 */
+    /* 리깅 협업 작가 (상단 3열) */
+    .rigging-wrap { margin-bottom: 30px; }
+    .rigging-desc { font-size: 14px; color: var(--text-light); margin-left: 10px; font-weight: 400; }
+    .rigging-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .rigging-card { background: #fff; border: 2px solid var(--border); border-radius: var(--radius); overflow: hidden; position: relative; cursor: pointer; transition: 0.2s; }
+    .rigging-card.selected { border-color: var(--point); background: var(--point-light); }
+    .rigging-checkbox { position: absolute; top: 15px; right: 15px; width: 24px; height: 24px; accent-color: var(--point); cursor: pointer; z-index: 10; }
+    .rigging-thumb { aspect-ratio: 3/4; overflow: hidden; background: #eee; }
+    .rigging-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .rigging-info { padding: 15px; text-align: center; }
+
+    /* 나머지 옵션 (하단 2열) */
+    .options-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+    .option-group { margin-bottom: 30px; }
+    .option-group-title { font-size: 18px; font-weight: 600; margin-bottom: 15px; color: var(--text); }
+    
+    .opt-row { display: flex; justify-content: space-between; align-items: center; background: var(--gray-bg); padding: 15px 20px; border-radius: var(--radius); border: 2px solid transparent; transition: 0.2s; }
+    .opt-row.active { border-color: var(--point); background: var(--point-light); }
+    .opt-info { flex: 1; }
+    .opt-name { font-size: 16px; font-weight: 600; }
+    .opt-price { display: block; font-size: 15px; color: var(--text-light); margin-top: 5px; }
+    .opt-controls { display: flex; align-items: center; gap: 10px; }
+    .opt-btn { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--border); background: #fff; cursor: pointer; font-size: 18px; display: flex; justify-content: center; align-items: center; color: var(--text); }
+    .opt-input { width: 50px; text-align: center; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 6px; font-family: inherit; font-size: 15px; }
+
+    /* 신청 양식 */
+    .form-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+    .form-left { display: flex; flex-direction: column; gap: 20px; }
+    .input-group label { display: block; font-weight: 600; margin-bottom: 8px; }
+    .input-group .desc { font-size: 13px; color: var(--point); font-weight: 400; margin-left: 5px; }
+    .input-group input, .input-group textarea { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-family: inherit; font-size: 15px; outline: none; }
+    .input-group input:focus, .input-group textarea:focus { border-color: var(--point); }
+    .input-group textarea { resize: vertical; min-height: 100px; }
+
+    .form-right { background: var(--gray-bg); padding: 30px; border-radius: var(--radius); border: 2px solid var(--border); height: fit-content; position: sticky; top: 20px; }
+    .preview-box { white-space: pre-wrap; word-break: break-all; font-size: 15px; line-height: 1.8; margin-bottom: 20px; }
+    .form-btns { display: flex; gap: 10px; }
+    .btn { flex: 1; padding: 12px; border: none; border-radius: var(--radius-sm); font-size: 15px; font-weight: bold; cursor: pointer; font-family: inherit; }
+    .btn-copy { background: var(--point); color: #fff; }
+    .btn-reset { background: var(--text); color: #fff; }
+
+    /* 토글 (공지사항, 저작권) */
+    details { background: var(--gray-bg); border-radius: var(--radius); padding: 15px 20px; margin-bottom: 15px; }
+    summary { font-size: 18px; font-weight: bold; cursor: pointer; list-style: none; outline: none; }
+    summary::-webkit-details-marker { display: none; }
+    .details-content { margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--border); font-size: 15px; }
+    .details-content ul { margin-left: 20px; }
+    .details-content li { margin-bottom: 8px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { border: 1px solid var(--border); padding: 10px; text-align: center; }
+    th { background: #fff; }
+
+    /* 모바일 반응형 */
     @media (max-width: 768px) {
-        .container { padding: 25px 15px; }
-        .header { flex-direction: column; text-align: center; gap: 15px; }
-        .portfolio-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-        .process-wrap { gap: 6px; padding: 15px 10px; }
-        .process-step { min-width: 80px; font-size: 12px; padding: 10px 4px; }
-        .process-arrow { display: none; }
-    }
-    @media (max-width: 480px) {
-        .rigging-grid { grid-template-columns: 1fr; }
-        .portfolio-grid { grid-template-columns: 1fr; }
+        .gallery-grid, .rigging-grid, .options-grid, .form-wrap { grid-template-columns: 1fr; }
+        .profile-wrap { flex-direction: column; text-align: center; }
+        .option-group-title .rigging-desc {
+        display: block;
+        margin-left: 0;
+        margin-top: 4px;
     }
 </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="header">
-        <img src="profile.png" alt="프로필" class="profile-img">
+
+    <div class="section profile-wrap">
+        <img src="profile.png" alt="프로필 이미지" class="profile-img">
         <div class="profile-info">
-            <h1>레레 작가 커미션</h1>
-            <p>안녕하세요! 일러스트레이터 레레 입니다.
-만족스런 결과물로 보답하겠습니다. 언제나 감사합니다!</p>
+            <h1>레레 작가 (れれ / rere)</h1>
+            <p>안녕하세요! 일러스트레이터 레레 입니다 ( ˶'ᵕ'˶ )♡<br>의뢰해 주신 소중한 캐릭터가 더욱 매력적으로 빛날 수 있도록 최선을 다하겠습니다!<br>믿고 맡겨주셔서 감사합니다!</p>
         </div>
     </div>
 
     <div class="section">
-        <h2>작업 슬롯 현황 <span style="font-size: 13px; font-weight: 400; color: var(--text-light); margin-left: 5px;">(외부 컨택 포함)</span></h2>
-        <div class="slot-container">
-            <div class="slot-box">
-                <div class="slot-month">6월</div>
-                <span class="slot-status closed">마감</span>
-            </div>
-            <div class="slot-box">
-                <div class="slot-month">7월</div>
-                <span class="slot-status closed">마감</span>
-            </div>
-            <div class="slot-box">
-                <div class="slot-month">8월</div>
-                <span class="slot-status open">가능</span>
-            </div>
-            <div class="slot-box">
-                <div class="slot-month">9월</div>
-                <span class="slot-status open">가능</span>
-            </div>
-            <div class="slot-box">
-                <div class="slot-month">10월</div>
-                <span class="slot-status open">가능</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="section">
-        <h2>리깅 협업 작가</h2>
-        <div class="rigging-grid">
-            <div class="rigging-card" onclick="selectRiggingCard(this, 'A 작가')">
-                <div class="rigging-checkbox-wrap">
-                    <input type="checkbox" class="rigging-checkbox" onclick="event.stopPropagation();" onchange="syncCheckbox(this, 'A 작가')">
+        <h2>작업 슬롯 <span class="slot-notice">외부 컨택 포함</span></h2>
+        <div class="slot-grid">
+            <div class="slot-month">
+                <h3>6월</h3>
+                <div class="slot-items">
+                    <div class="slot-badge closed">마감</div>
+                    <div class="slot-badge open">가능</div>
+                    <div class="slot-badge open">가능</div>
                 </div>
-                <img src="rigging1.png" alt="A 작가 샘플" class="rigging-thumb" onclick="openModal('rigging_sample1.gif'); event.stopPropagation();">
-                <div class="rigging-tags">
-                    <span class="tag t-pink">일러 5만원 할인</span>
-                    <span class="tag t-purple">표정 리깅 1종 무료</span>
-                </div>
-                <div class="rigging-info">A 작가 (리깅 단가 별도 문의)</div>
-                <a href="https://artmug.kr" target="_blank" class="rigging-btn" onclick="event.stopPropagation();">작가 페이지 바로가기</a>
             </div>
-
-            <div class="rigging-card" onclick="selectRiggingCard(this, 'B 작가')">
-                <div class="rigging-checkbox-wrap">
-                    <input type="checkbox" class="rigging-checkbox" onclick="event.stopPropagation();" onchange="syncCheckbox(this, 'B 작가')">
+            <div class="slot-month">
+                <h3>7월</h3>
+                <div class="slot-items">
+                    <div class="slot-badge open">가능</div>
+                    <div class="slot-badge open">가능</div>
+                    <div class="slot-badge open">가능</div>
                 </div>
-                <img src="rigging2.png" alt="B 작가 샘플" class="rigging-thumb" onclick="openModal('rigging_sample2.gif'); event.stopPropagation();">
-                <div class="rigging-tags">
-                    <span class="tag t-dpink">리깅 5만원 할인</span>
-                </div>
-                <div class="rigging-info">B 작가 (리깅 단가 별도 문의)</div>
-                <a href="https://artmug.kr" target="_blank" class="rigging-btn" onclick="event.stopPropagation();">작가 페이지 바로가기</a>
             </div>
-
-            <div class="rigging-card" onclick="selectRiggingCard(this, 'C 작가')">
-                <div class="rigging-checkbox-wrap">
-                    <input type="checkbox" class="rigging-checkbox" onclick="event.stopPropagation();" onchange="syncCheckbox(this, 'C 작가')">
+            <div class="slot-month">
+                <h3>8월</h3>
+                <div class="slot-items">
+                    <div class="slot-badge open">가능</div>
+                    <div class="slot-badge open">가능</div>
+                    <div class="slot-badge open">가능</div>
                 </div>
-                <img src="rigging3.png" alt="C 작가 샘플" class="rigging-thumb" onclick="openModal('rigging_sample3.gif'); event.stopPropagation();">
-                <div class="rigging-tags">
-                    <span class="tag t-pink">일러 5만원 할인</span>
-                    <span class="tag t-dpink">리깅 5만원 할인</span>
-                </div>
-                <div class="rigging-info">C 작가 (리깅 단가 별도 문의)</div>
-                <a href="https://artmug.kr" target="_blank" class="rigging-btn" onclick="event.stopPropagation();">작가 페이지 바로가기</a>
             </div>
-        </div>
-    </div>
-
-    <div class="section">
-        <h2>포트폴리오</h2>
-        <div class="portfolio-grid">
-            <div class="portfolio-item" onclick="openModal('portfolio1.png')"><img src="portfolio1.png" alt="포트폴리오 1"></div>
-            <div class="portfolio-item" onclick="openModal('portfolio2.png')"><img src="portfolio2.png" alt="포트폴리오 2"></div>
-            <div class="portfolio-item" onclick="openModal('portfolio3.png')"><img src="portfolio3.png" alt="포트폴리오 3"></div>
-            <div class="portfolio-item" onclick="openModal('portfolio4.png')"><img src="portfolio4.png" alt="포트폴리오 4"></div>
-            <div class="portfolio-item" onclick="openModal('portfolio5.png')"><img src="portfolio5.png" alt="포트폴리오 5"></div>
-            <div class="portfolio-item" onclick="openModal('portfolio6.png')"><img src="portfolio6.png" alt="포트폴리오 6"></div>
-            <div class="portfolio-item" onclick="openModal('portfolio7.png')"><img src="portfolio7.png" alt="포트폴리오 7"></div>
-            <div class="portfolio-item" onclick="openModal('portfolio8.png')"><img src="portfolio8.png" alt="포트폴리오 8"></div>
-            <div class="portfolio-item" onclick="openModal('portfolio9.png')"><img src="portfolio9.png" alt="포트폴리오 9"></div>
+            <div class="slot-month">
+                <h3>9월</h3>
+                <div class="slot-items">
+                    <div class="slot-badge open">가능</div>
+                    <div class="slot-badge open">가능</div>
+                    <div class="slot-badge open">가능</div>
+                </div>
+            </div>
+            <div class="slot-month">
+                <h3>10월</h3>
+                <div class="slot-items">
+                    <div class="slot-badge open">가능</div>
+                    <div class="slot-badge open">가능</div>
+                    <div class="slot-badge open">가능</div>
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="section">
         <h2>작업 과정</h2>
         <div class="process-wrap">
-            <div class="process-step">1. 문의 및 신청</div>
+            <div class="process-step">문의 및 신청</div>
             <div class="process-arrow">></div>
-            <div class="process-step">2. 결제 확인</div>
+            <div class="process-step">결제 확인</div>
             <div class="process-arrow">></div>
-            <div class="process-step highlight">3. 러프 ⚡</div>
+            <div class="process-step">러프</div>
             <div class="process-arrow">></div>
-            <div class="process-step highlight">4. 컨펌 ⚡</div>
+            <div class="process-step highlight">컨펌</div>
             <div class="process-arrow">></div>
-            <div class="process-step">5. 완성</div>
+            <div class="process-step">완성</div>
             <div class="process-arrow">></div>
-            <div class="process-step highlight">6. 컨펌 ⚡</div>
+            <div class="process-step highlight">컨펌</div>
             <div class="process-arrow">></div>
-            <div class="process-step done">7. 완료 🎉</div>
+            <div class="process-step done">완료</div>
         </div>
     </div>
 
-    <div class="bottom-layout">
-        <div class="options-container">
-            <div class="option-group">
-                <div class="option-group-title">일러스트</div>
-                <div class="options-grid">
-                    <div class="opt-row" onclick="toggleOptRow(this)">
-                        <div class="opt-info">
-                            <span class="opt-name">버츄얼 전신 일러스트</span>
-                            <span class="opt-price">800,000원</span>
-                            <span class="opt-sub-desc">파츠분리, 기본 표정 8종 포함</span>
-                        </div>
-                        <div class="opt-controls" onclick="event.stopPropagation();">
-                            <button class="opt-btn" onclick="changeQty(this, -1)">-</button>
-                            <input type="text" class="opt-input qty-input" value="0" data-name="버츄얼 전신 일러스트" data-price="800000" data-cat="일러스트" readonly>
-                            <button class="opt-btn" onclick="changeQty(this, 1)">+</button>
-                        </div>
-                    </div>
-                    <div class="opt-row" onclick="toggleOptRow(this)">
-                        <div class="opt-info">
-                            <span class="opt-name"><span class="tag t-blue">협업용</span> <span class="tag t-pink">일러 5만원 할인</span> 버츄얼 전신 일러스트</span>
-                            <span class="opt-price">750,000원</span>
-                            <span class="opt-sub-desc">파츠분리, 기본 표정 8종 포함</span>
-                        </div>
-                        <div class="opt-controls" onclick="event.stopPropagation();">
-                            <button class="opt-btn" onclick="changeQty(this, -1)">-</button>
-                            <input type="text" class="opt-input qty-input" value="0" data-name="버츄얼 전신 일러스트(협업용)" data-price="750000" data-cat="일러스트" readonly>
-                            <button class="opt-btn" onclick="changeQty(this, 1)">+</button>
-                        </div>
-                    </div>
+    <div class="section">
+        <h2>판매모델</h2>
+        <div class="gallery-grid">
+            <div class="card">
+                <div class="card-thumb" onclick="toggleExpand(this)">
+                    <img src="model_sample1.jpg" alt="판매모델">
+                </div>
+                <div class="card-info">
+                    <h4>판매모델 1</h4>
+                    <p>1,000,000원</p>
+                    <p>일러스트 : 레레 / 리깅 : 홍길동</p>
+                    <a href="유튜브링크" target="_blank" class="yt-btn">리깅 바로보기</a>
+                </div>
+                <div class="full-view" onclick="toggleExpand(this)">
+                    
+                    <img src="model_sample1.jpg" alt="원본">
+                    <img src="model_sample1_1.jpg" alt="추가">
                 </div>
             </div>
+            </div>
+    </div>
 
-            <div class="option-group">
-                <div class="option-group-title">얼굴·바디</div>
-                <div class="options-grid">
-                    <div class="opt-row" onclick="toggleOptRow(this)">
-                        <div class="opt-info">
-                            <span class="opt-name">얼굴·표정 추가</span>
-                            <span class="opt-price">10,000원</span>
-                        </div>
-                        <div class="opt-controls" onclick="event.stopPropagation();">
-                            <button class="opt-btn" onclick="changeQty(this, -1)">-</button>
-                            <input type="text" class="opt-input qty-input" value="0" data-name="얼굴·표정 추가" data-price="10000" data-cat="얼굴·바디" readonly>
-                            <button class="opt-btn" onclick="changeQty(this, 1)">+</button>
-                        </div>
-                    </div>
-                    <div class="opt-row" onclick="toggleOptRow(this)">
-                        <div class="opt-info">
-                            <span class="opt-name">기본 바디</span>
-                            <span class="opt-price">100,000원</span>
-                        </div>
-                        <div class="opt-controls" onclick="event.stopPropagation();">
-                            <button class="opt-btn" onclick="changeQty(this, -1)">-</button>
-                            <input type="text" class="opt-input qty-input" value="0" data-name="기본 바디" data-price="100000" data-cat="얼굴·바디" readonly>
-                            <button class="opt-btn" onclick="changeQty(this, 1)">+</button>
-                        </div>
-                    </div>
+    <div class="section">
+        <h2>포트폴리오 <span class="gallery-subtitle">내려갈 수록 오래된 작업 입니다.</span></h2>
+        <div class="gallery-grid">
+            <div class="card">
+                <div class="card-thumb" onclick="toggleExpand(this)">
+                    <img src="portfolio1.jpg" alt="포트폴리오">
+                    <div class="client-name">앗슈산제 님</div>
+                </div>
+                <div class="full-view" onclick="toggleExpand(this)">
+                    <p style="margin-bottom:20px; font-weight:600;">이미지 아무 곳이나 클릭하면 닫힙니다.</p>
+                    <img src="portfolio1.jpg" alt="원본">
+                    <img src="portfolio1_1.jpg" alt="추가">
                 </div>
             </div>
-
-            <div class="option-group">
-                <div class="option-group-title">손</div>
-                <div class="options-grid">
-                    <div class="opt-row" onclick="toggleOptRow(this)">
-                        <div class="opt-info">
-                            <span class="opt-name">손 추가</span>
-                            <span class="opt-price">60,000원</span>
-                            <span class="opt-sub-desc">브이, 손하트 등</span>
-                        </div>
-                        <div class="opt-controls" onclick="event.stopPropagation();">
-                            <button class="opt-btn" onclick="changeQty(this, -1)">-</button>
-                            <input type="text" class="opt-input qty-input" value="0" data-name="손 추가" data-price="60000" data-cat="손" readonly>
-                            <button class="opt-btn" onclick="changeQty(this, 1)">+</button>
-                        </div>
-                    </div>
-                    <div class="opt-row" onclick="toggleOptRow(this)">
-                        <div class="opt-info">
-                            <span class="opt-name">손 + 소품 추가</span>
-                            <span class="opt-price">100,000원</span>
-                            <span class="opt-sub-desc">마이크, 게임기 등</span>
-                        </div>
-                        <div class="opt-controls" onclick="event.stopPropagation();">
-                            <button class="opt-btn" onclick="changeQty(this, -1)">-</button>
-                            <input type="text" class="opt-input qty-input" value="0" data-name="손 + 소품 추가" data-price="100000" data-cat="손" readonly>
-                            <button class="opt-btn" onclick="changeQty(this, 1)">+</button>
-                        </div>
-                    </div>
+            <div class="card">
+                <div class="card-thumb" onclick="toggleExpand(this)">
+                    <img src="portfolio2.jpg" alt="포트폴리오">
+                    <div class="client-name">이응 님</div>
+                </div>
+                <div class="full-view" onclick="toggleExpand(this)">
+                    <p style="margin-bottom:20px; font-weight:600;">이미지 아무 곳이나 클릭하면 닫힙니다.</p>
+                    <img src="portfolio2.jpg" alt="원본">
+                    <img src="portfolio2_1.jpg" alt="추가">
                 </div>
             </div>
-
-            <div class="option-group">
-                <div class="option-group-title">의상</div>
-                <div class="options-grid">
-                    <div class="opt-row" onclick="toggleOptRow(this)">
-                        <div class="opt-info">
-                            <span class="opt-name">겉옷 ON/OFF</span>
-                            <span class="opt-price">100,000원</span>
-                        </div>
-                        <div class="opt-controls" onclick="event.stopPropagation();">
-                            <button class="opt-btn" onclick="changeQty(this, -1)">-</button>
-                            <input type="text" class="opt-input qty-input" value="0" data-name="겉옷 ON/OFF" data-price="100000" data-cat="의상" readonly>
-                            <button class="opt-btn" onclick="changeQty(this, 1)">+</button>
-                        </div>
-                    </div>
-                    <div class="opt-row" onclick="toggleOptRow(this)">
-                        <div class="opt-info">
-                            <span class="opt-name">신의상</span>
-                            <span class="opt-price">300,000원</span>
-                            <span class="opt-sub-desc">문의 필요</span>
-                        </div>
-                        <div class="opt-controls" onclick="event.stopPropagation();">
-                            <button class="opt-btn" onclick="changeQty(this, -1)">-</button>
-                            <input type="text" class="opt-input qty-input" value="0" data-name="신의상" data-price="300000" data-cat="의상" readonly>
-                            <button class="opt-btn" onclick="changeQty(this, 1)">+</button>
-                        </div>
-                    </div>
-                    <div class="opt-row" onclick="toggleOptRow(this)">
-                        <div class="opt-info">
-                            <span class="opt-name">동물 귀</span>
-                            <span class="opt-price">30,000원</span>
-                        </div>
-                        <div class="opt-controls" onclick="event.stopPropagation();">
-                            <button class="opt-btn" onclick="changeQty(this, -1)">-</button>
-                            <input type="text" class="opt-input qty-input" value="0" data-name="동물 귀" data-price="30000" data-cat="의상" readonly>
-                            <button class="opt-btn" onclick="changeQty(this, 1)">+</button>
-                        </div>
-                    </div>
-                    <div class="opt-row" onclick="toggleOptRow(this)">
-                        <div class="opt-info">
-                            <span class="opt-name">동물 꼬리</span>
-                            <span class="opt-price">30,000원</span>
-                        </div>
-                        <div class="opt-controls" onclick="event.stopPropagation();">
-                            <button class="opt-btn" onclick="changeQty(this, -1)">-</button>
-                            <input type="text" class="opt-input qty-input" value="0" data-name="동물 꼬리" data-price="30000" data-cat="의상" readonly>
-                            <button class="opt-btn" onclick="changeQty(this, 1)">+</button>
-                        </div>
-                    </div>
-                </div>
             </div>
+    </div>
 
-            <div class="option-group">
-                <div class="option-group-title">기타</div>
-                <div class="options-grid">
-                    <div class="opt-row" onclick="toggleOptRow(this)">
-                        <div class="opt-info">
-                            <span class="opt-name">삼면도</span>
-                            <span class="opt-price">200,000원</span>
-                        </div>
-                        <div class="opt-controls" onclick="event.stopPropagation();">
-                            <button class="opt-btn" onclick="changeQty(this, -1)">-</button>
-                            <input type="text" class="opt-input qty-input" value="0" data-name="삼면도" data-price="200000" data-cat="기타" readonly>
-                            <button class="opt-btn" onclick="changeQty(this, 1)">+</button>
-                        </div>
-                    </div>
-                    <div class="opt-row" onclick="toggleOptRow(this)">
-                        <div class="opt-info">
-                            <span class="opt-name">작업물 전달 후 비공개 3개월</span>
-                            <span class="opt-price">100,000원</span>
-                        </div>
-                        <div class="opt-controls" onclick="event.stopPropagation();">
-                            <button class="opt-btn" onclick="changeQty(this, -1)">-</button>
-                            <input type="text" class="opt-input qty-input" value="0" data-name="작업물 전달 후 비공개 3개월" data-price="100000" data-cat="기타" readonly>
-                            <button class="opt-btn" onclick="changeQty(this, 1)">+</button>
-                        </div>
-                    </div>
-                </div>
+    <div class="section">
+        <h2>단가 및 옵션 선택</h2>
+        
+        <div class="rigging-wrap">
+            <div class="option-group-title">⚙️ 리깅 (협업)
+                <span class="rigging-desc">협업 작가에게 리깅 신청 시 추가 혜택 제공! 리깅은 협업 작가에게 따로 신청해주세요!</span>
             </div>
-
-            <div class="option-group">
-                <div class="option-group-title">저작권</div>
-                <div class="options-grid">
-                    <div class="opt-row" onclick="toggleOptRow(this)">
-                        <div class="opt-info">
-                            <span class="opt-name">개인세</span>
-                            <span class="opt-price">300,000원</span>
-                        </div>
-                        <div class="opt-controls" onclick="event.stopPropagation();">
-                            <button class="opt-btn" onclick="changeQty(this, -1)">-</button>
-                            <input type="text" class="opt-input qty-input" value="0" data-name="개인세" data-price="300000" data-cat="저작권" readonly>
-                            <button class="opt-btn" onclick="changeQty(this, 1)">+</button>
-                        </div>
+            <div class="rigging-grid">
+                <div class="rigging-card" onclick="toggleRigging(this)" data-name="리깅 협업 작가 (OOO 님)">
+                    <input type="checkbox" class="rigging-checkbox" onclick="event.stopPropagation(); toggleRigging(this.parentElement);">
+                    <div class="rigging-thumb">
+                        <img src="rigging_sample1.gif" alt="리깅 샘플">
                     </div>
-                    <div class="opt-row" onclick="toggleOptRow(this)">
-                        <div class="opt-info">
-                            <span class="opt-name">기업세</span>
-                            <span class="opt-price">500,000원</span>
+                    <div class="rigging-info">
+                        <h4>OOO 작가님</h4>
+                        <div style="margin: 10px 0;">
+                            <span class="tag tag-discount">리깅 5만원 할인</span>
+                            <span class="tag tag-free">표정 리깅 1종 무료</span>
                         </div>
-                        <div class="opt-controls" onclick="event.stopPropagation();">
-                            <button class="opt-btn" onclick="changeQty(this, -1)">-</button>
-                            <input type="text" class="opt-input qty-input" value="0" data-name="기업세" data-price="500000" data-cat="저작권" readonly>
-                            <button class="opt-btn" onclick="changeQty(this, 1)">+</button>
-                        </div>
+                        <a href="작가링크" target="_blank" class="tag" style="background:#495057; color:#fff; text-decoration:none;" onclick="event.stopPropagation();">페이지 바로가기</a>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="sticky-box">
-            <div class="price-box">
-                <div class="price-title">예상 총 합계</div>
-                <div class="price-total" id="total-display">0원</div>
+        <div class="options-grid">
+            <div class="option-group">
+                <div class="option-group-title">🎨 일러스트</div>
+                <div class="opt-row" data-category="일러스트" data-name="버츄얼 전신 일러스트" data-price="800000">
+                    <div class="opt-info">
+                        <div class="opt-name">버츄얼 전신 일러스트 <span class="desc-text">파츠분리O + 기본 표정 8종 포함</span></div>
+                        <div class="opt-price">800,000원</div>
+                    </div>
+                    <div class="opt-controls">
+                        <button class="opt-btn" onclick="updateQty(this, -1)">-</button>
+                        <input type="number" class="opt-input qty-input" value="0" min="0" onchange="calc()">
+                        <button class="opt-btn" onclick="updateQty(this, 1)">+</button>
+                    </div>
+                </div>
+                <div class="opt-row" style="margin-top:10px;" data-category="일러스트" data-name="버츄얼 전신 일러스트 [협업용]" data-price="750000">
+                    <div class="opt-info">
+                        <div class="opt-name">버츄얼 전신 일러스트 <span class="tag">협업용</span> <span class="tag">일러 5만원 할인</span> <span class="desc-text">파츠분리O + 기본 표정 8종 포함</span></div>
+                        <div class="opt-price">750,000원</div>
+                    </div>
+                    <div class="opt-controls">
+                        <button class="opt-btn" onclick="updateQty(this, -1)">-</button>
+                        <input type="number" class="opt-input qty-input" value="0" min="0" onchange="calc()">
+                        <button class="opt-btn" onclick="updateQty(this, 1)">+</button>
+                    </div>
+                </div>
             </div>
 
-            <div class="form-box">
-                <h3>신청 양식 생성</h3>
-                <div class="form-group">
-                    <label for="in-nickname">방송 닉네임</label>
-                    <input type="text" id="in-nickname" class="form-control" placeholder="스트리머 활동 명을 적어주세요." oninput="updateFormPreview()">
+            <div class="option-group">
+                <div class="option-group-title">😊 얼굴·바디</div>
+                <div class="opt-row" data-category="추가 요소" data-name="얼굴·표정 추가" data-price="10000">
+                    <div class="opt-info">
+                        <div class="opt-name">얼굴·표정 추가</div>
+                        <div class="opt-price">10,000원</div>
+                    </div>
+                    <div class="opt-controls">
+                        <button class="opt-btn" onclick="updateQty(this, -1)">-</button>
+                        <input type="number" class="opt-input qty-input" value="0" min="0" onchange="calc()">
+                        <button class="opt-btn" onclick="updateQty(this, 1)">+</button>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="in-concept">캐릭터 컨셉</label>
-                    <textarea id="in-concept" class="form-control" placeholder="성별, 나이, 의상 스타일, 머리색 등 원하는 외형을 설명해주세요." oninput="updateFormPreview()"></textarea>
+                <div class="opt-row" style="margin-top:10px;" data-category="추가 요소" data-name="기본 바디" data-price="100000">
+                    <div class="opt-info">
+                        <div class="opt-name">기본 바디 <span class="desc-text">신의상 계획이 있다면 추가 부탁드립니다</span></div>
+                        <div class="opt-price">100,000원</div>
+                    </div>
+                    <div class="opt-controls">
+                        <button class="opt-btn" onclick="updateQty(this, -1)">-</button>
+                        <input type="number" class="opt-input qty-input" value="0" min="0" onchange="calc()">
+                        <button class="opt-btn" onclick="updateQty(this, 1)">+</button>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="in-req">기타 요청사항</label>
-                    <textarea id="in-req" class="form-control" placeholder="추가 요구 사양이나 문의사항을 입력해주세요." oninput="updateFormPreview()"></textarea>
-                </div>
+            </div>
 
-                <div class="preview-box">
-                    <div class="preview-title">생성된 신청 양식 프리뷰</div>
-                    <div class="preview-area" id="preview-area"></div>
+            <div class="option-group">
+                <div class="option-group-title">✋ 손</div>
+                <div class="opt-row" data-category="추가 요소" data-name="손 추가" data-price="60000">
+                    <div class="opt-info">
+                        <div class="opt-name">손 추가 <span class="desc-text">브이, 손하트 등</span></div>
+                        <div class="opt-price">60,000원</div>
+                    </div>
+                    <div class="opt-controls">
+                        <button class="opt-btn" onclick="updateQty(this, -1)">-</button>
+                        <input type="number" class="opt-input qty-input" value="0" min="0" onchange="calc()">
+                        <button class="opt-btn" onclick="updateQty(this, 1)">+</button>
+                    </div>
                 </div>
+                <div class="opt-row" style="margin-top:10px;" data-category="추가 요소" data-name="손+소품 추가" data-price="100000">
+                    <div class="opt-info">
+                        <div class="opt-name">손+소품 추가 <span class="desc-text">마이크, 게임기 등</span></div>
+                        <div class="opt-price">100,000원</div>
+                    </div>
+                    <div class="opt-controls">
+                        <button class="opt-btn" onclick="updateQty(this, -1)">-</button>
+                        <input type="number" class="opt-input qty-input" value="0" min="0" onchange="calc()">
+                        <button class="opt-btn" onclick="updateQty(this, 1)">+</button>
+                    </div>
+                </div>
+            </div>
 
-                <button class="action-btn btn-primary" onclick="copyForm()">양식 복사하기</button>
-                <button class="action-btn btn-secondary" onclick="resetForm()">선택 초기화</button>
+            <div class="option-group">
+                <div class="option-group-title">🎀 의상</div>
+                <div class="opt-row" data-category="추가 요소" data-name="겉옷 ON/OFF" data-price="100000">
+                    <div class="opt-info">
+                        <div class="opt-name">겉옷 ON/OFF</div>
+                        <div class="opt-price">100,000원</div>
+                    </div>
+                    <div class="opt-controls">
+                        <button class="opt-btn" onclick="updateQty(this, -1)">-</button>
+                        <input type="number" class="opt-input qty-input" value="0" min="0" onchange="calc()">
+                        <button class="opt-btn" onclick="updateQty(this, 1)">+</button>
+                    </div>
+                </div>
+                <div class="opt-row" style="margin-top:10px;" data-category="추가 요소" data-name="신의상" data-price="300000">
+                    <div class="opt-info">
+                        <div class="opt-name">신의상 <span class="desc-text">문의필요</span></div>
+                        <div class="opt-price">300,000원</div>
+                    </div>
+                    <div class="opt-controls">
+                        <button class="opt-btn" onclick="updateQty(this, -1)">-</button>
+                        <input type="number" class="opt-input qty-input" value="0" min="0" onchange="calc()">
+                        <button class="opt-btn" onclick="updateQty(this, 1)">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="option-group">
+                <div class="option-group-title">🐾 동물</div>
+                <div class="opt-row" data-category="추가 요소" data-name="동물 귀" data-price="30000">
+                    <div class="opt-info">
+                        <div class="opt-name">동물 귀</div>
+                        <div class="opt-price">30,000원</div>
+                    </div>
+                    <div class="opt-controls">
+                        <button class="opt-btn" onclick="updateQty(this, -1)">-</button>
+                        <input type="number" class="opt-input qty-input" value="0" min="0" onchange="calc()">
+                        <button class="opt-btn" onclick="updateQty(this, 1)">+</button>
+                    </div>
+                </div>
+                <div class="opt-row" style="margin-top:10px;" data-category="추가 요소" data-name="동물 꼬리" data-price="30000">
+                    <div class="opt-info">
+                        <div class="opt-name">동물 꼬리</div>
+                        <div class="opt-price">30,000원</div>
+                    </div>
+                    <div class="opt-controls">
+                        <button class="opt-btn" onclick="updateQty(this, -1)">-</button>
+                        <input type="number" class="opt-input qty-input" value="0" min="0" onchange="calc()">
+                        <button class="opt-btn" onclick="updateQty(this, 1)">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="option-group">
+                <div class="option-group-title">🌟 기타</div>
+                <div class="opt-row" data-category="기타" data-name="삼면도" data-price="200000">
+                    <div class="opt-info">
+                        <div class="opt-name">삼면도</div>
+                        <div class="opt-price">200,000원</div>
+                    </div>
+                    <div class="opt-controls">
+                        <button class="opt-btn" onclick="updateQty(this, -1)">-</button>
+                        <input type="number" class="opt-input qty-input" value="0" min="0" onchange="calc()">
+                        <button class="opt-btn" onclick="updateQty(this, 1)">+</button>
+                    </div>
+                </div>
+                <div class="opt-row" style="margin-top:10px;" data-category="기타" data-name="작업물 전달 후 비공개 3개월" data-price="100000">
+                    <div class="opt-info">
+                        <div class="opt-name">작업물 전달 후 비공개 3개월</div>
+                        <div class="opt-price">100,000원</div>
+                    </div>
+                    <div class="opt-controls">
+                        <button class="opt-btn" onclick="updateQty(this, -1)">-</button>
+                        <input type="number" class="opt-input qty-input" value="0" min="0" onchange="calc()">
+                        <button class="opt-btn" onclick="updateQty(this, 1)">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="option-group">
+                <div class="option-group-title">📜 저작권</div>
+                <div class="opt-row" data-category="저작권" data-name="개인세" data-price="300000">
+                    <div class="opt-info">
+                        <div class="opt-name">개인세</div>
+                        <div class="opt-price">300,000원</div>
+                    </div>
+                    <div class="opt-controls">
+                        <button class="opt-btn" onclick="updateQty(this, -1)">-</button>
+                        <input type="number" class="opt-input qty-input" value="0" min="0" onchange="calc()">
+                        <button class="opt-btn" onclick="updateQty(this, 1)">+</button>
+                    </div>
+                </div>
+                <div class="opt-row" style="margin-top:10px;" data-category="저작권" data-name="기업세" data-price="500000">
+                    <div class="opt-info">
+                        <div class="opt-name">기업세</div>
+                        <div class="opt-price">500,000원</div>
+                    </div>
+                    <div class="opt-controls">
+                        <button class="opt-btn" onclick="updateQty(this, -1)">-</button>
+                        <input type="number" class="opt-input qty-input" value="0" min="0" onchange="calc()">
+                        <button class="opt-btn" onclick="updateQty(this, 1)">+</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div id="imageModal" class="modal" onclick="closeModal()">
-    <span class="modal-close" onclick="closeModal()">&times;</span>
-    <img class="modal-content" id="modal-img" onclick="event.stopPropagation();">
+    <div class="section">
+        <h2>신청 양식</h2>
+        <div class="form-wrap">
+            <div class="form-left">
+                <div class="input-group">
+                    <label>방송 닉네임, 방송 플랫폼 <span class="desc">SNS, 포트폴리오 업로드 시 기재합니다</span></label>
+                    <input type="text" id="in-nickname" placeholder="입력해주세요" onkeyup="calc()">
+                </div>
+                <div class="input-group">
+                    <label>캐릭터 컨셉 <span class="desc">캐릭터 성별, 키, 몸매, 외관나이, 성별 등</span></label>
+                    <textarea id="in-concept" placeholder="입력해주세요" onkeyup="calc()"></textarea>
+                </div>
+                <div class="input-group">
+                    <label>기타 요청사항</label>
+                    <textarea id="in-req" placeholder="입력해주세요" onkeyup="calc()"></textarea>
+                </div>
+            </div>
+
+            <div class="form-right">
+                <div class="preview-box" id="preview-area">옵션을 선택하시면 양식이 생성됩니다.</div>
+                <div class="form-btns">
+                    <button class="btn btn-copy" onclick="copyForm()">양식 복사하기</button>
+                    <button class="btn btn-reset" onclick="resetForm()">초기화</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <details>
+            <summary>공지사항 ▼</summary>
+            <div class="details-content">
+                <ul>
+                    <li>모든 작업물의 저작권은 작가에게 있으며, 포트폴리오/샘플로 활용될 수 있습니다.</li>
+                    <li>작품의 무단 수정을 금지합니다.</li>
+                    <li>고수위 노출, R18 성인 컨텐츠를 위한 캐릭터 작업은 불가합니다.</li>
+                </ul>
+            </div>
+        </details>
+        
+        <details>
+            <summary>저작권 범위 ▼</summary>
+            <div class="details-content">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>구분</th>
+                            <th>생방송</th>
+                            <th>유튜브</th>
+                            <th>3D 제작</th>
+                            <th>굿즈 제작</th>
+                            <th>기업 사용</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>저작권 미구매</td>
+                            <td>O</td>
+                            <td>O</td>
+                            <td>X</td>
+                            <td>X</td>
+                            <td>X</td>
+                        </tr>
+                        <tr>
+                            <td>개인세 저작권</td>
+                            <td>O</td>
+                            <td>O</td>
+                            <td>O</td>
+                            <td>O</td>
+                            <td>X</td>
+                        </tr>
+                        <tr>
+                            <td>기업세 저작권</td>
+                            <td>O</td>
+                            <td>O</td>
+                            <td>O</td>
+                            <td>O</td>
+                            <td>O</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </details>
+    </div>
+
 </div>
 
 <script>
-    let selectedRigging = "";
+    // 인라인 확장 뷰어 토글
+function toggleExpand(element) {
+    const card = element.closest('.card');
+    const gallery = card.parentElement;
 
-    // 통화 단위 원 포맷팅 함수
-    function fmt(num) {
-        return num.toLocaleString() + '원';
+    if (card.classList.contains('expanded')) {
+        card.classList.remove('expanded');
+
+        gallery.querySelectorAll('.card').forEach(c => {
+            c.style.display = '';
+        });
+
+    } else {
+        gallery.querySelectorAll('.card').forEach(c => {
+            c.classList.remove('expanded');
+            c.style.display = 'none';
+        });
+
+        card.style.display = '';
+        card.classList.add('expanded');
     }
+}
 
-    // 리깅 작가 카드 선택 토글 로직
-    function selectRiggingCard(cardElement, writerName) {
-        const checkbox = cardElement.querySelector('.rigging-checkbox');
+    // 리깅 작가 선택 토글
+    function toggleRigging(card) {
+        const checkbox = card.querySelector('.rigging-checkbox');
+        // 토글
+        const isChecked = !checkbox.checked;
         
-        if(cardElement.classList.contains('selected')) {
-            cardElement.classList.remove('selected');
-            checkbox.checked = false;
-            selectedRigging = "";
-        } else {
-            document.querySelectorAll('.rigging-card').forEach(el => el.classList.remove('selected'));
-            document.querySelectorAll('.rigging-checkbox').forEach(el => el.checked = false);
-            
-            cardElement.classList.add('selected');
+        // 단일 선택 (원한다면 유지, 다중 선택이면 이 부분 삭제)
+        document.querySelectorAll('.rigging-checkbox').forEach(cb => {
+            cb.checked = false;
+            cb.closest('.rigging-card').classList.remove('selected');
+        });
+
+        if(isChecked) {
             checkbox.checked = true;
-            selectedRigging = writerName;
+            card.classList.add('selected');
         }
-        updateTotal();
+        calc();
     }
 
-    // 체크박스 클릭용 연동 함수
-    function syncCheckbox(checkboxElement, writerName) {
-        const card = checkboxElement.closest('.rigging-card');
-        card.classList.toggle('selected', checkboxElement.checked);
-        
-        if(checkboxElement.checked) {
-            document.querySelectorAll('.rigging-card').forEach(el => {
-                if(el !== card) el.classList.remove('selected');
-            });
-            document.querySelectorAll('.rigging-checkbox').forEach(el => {
-                if(el !== checkboxElement) el.checked = false;
-            });
-            selectedRigging = writerName;
-        } else {
-            selectedRigging = "";
-        }
-        updateTotal();
-    }
-
-    // 옵션 행 클릭 시 수량 토글 (0 -> 1 -> 0)
-    function toggleOptRow(rowElement) {
-        const input = rowElement.querySelector('.qty-input');
-        let val = parseInt(input.value) || 0;
-        
-        if (val > 0) {
-            input.value = 0;
-            rowElement.classList.remove('active');
-        } else {
-            input.value = 1;
-            rowElement.classList.add('active');
-        }
-        updateTotal();
-    }
-
-    // 수량 증가 감소 전용 컨트롤러 버튼 연동
-    function changeQty(btn, step) {
+    // 수량 조절 버튼
+    function updateQty(btn, change) {
         const input = btn.parentElement.querySelector('.qty-input');
-        const row = btn.closest('.opt-row');
         let val = parseInt(input.value) || 0;
-        val += step;
+        val += change;
         if(val < 0) val = 0;
-        
         input.value = val;
-        
-        if(val > 0) {
-            row.classList.add('active');
-        } else {
-            row.classList.remove('active');
-        }
-        updateTotal();
+        calc();
     }
 
-    // 실시간 총합 연산 및 텍스트 취합 연동 함수
-    function updateTotal() {
-        let total = 0;
-        let categories = {};
+    // 포맷 함수 (숫자에 콤마)
+    function fmt(num) {
+        return num.toLocaleString() + "원";
+    }
 
-        document.querySelectorAll('.qty-input').forEach(input => {
-            let qty = parseInt(input.value) || 0;
+    // 실시간 계산 및 양식 생성
+    function calc() {
+        let total = 0;
+        let categories = { "일러스트": [], "추가 요소": [], "기타": [], "저작권": [] };
+        let selectedRigging = null;
+
+        // 리깅 확인
+        const rigCheck = document.querySelector('.rigging-checkbox:checked');
+        if(rigCheck) {
+            selectedRigging = rigCheck.closest('.rigging-card').getAttribute('data-name');
+        }
+
+        // 옵션 확인
+        const rows = document.querySelectorAll('.opt-row');
+        rows.forEach(row => {
+            const input = row.querySelector('.qty-input');
+            const qty = parseInt(input.value) || 0;
+            const price = parseInt(row.getAttribute('data-price'));
+            const name = row.getAttribute('data-name');
+            const cat = row.getAttribute('data-category');
+
             if(qty > 0) {
-                let price = parseInt(input.getAttribute('data-price')) || 0;
-                let name = input.getAttribute('data-name');
-                let cat = input.getAttribute('data-cat');
-                
-                total += (price * qty);
-                
-                if(!categories[cat]) categories[cat] = [];
-                categories[cat].push(`- ${name} x${qty} (${fmt(price * qty)})`);
+                row.classList.add('active');
+                let sum = price * qty;
+                total += sum;
+                if(categories[cat]) {
+                    categories[cat].push(`- ${name} X ${qty} = ${fmt(sum)}`);
+                }
+            } else {
+                row.classList.remove('active');
             }
         });
 
-        document.getElementById('total-display').innerText = fmt(total);
-        updateFormPreview(total, categories);
-    }
-
-    // 입력 폼 내용을 기반으로 텍스트박스 양식 리빌딩
-    function updateFormPreview(cachedTotal, cachedCategories) {
-        let total = cachedTotal !== undefined ? cachedTotal : 0;
-        let categories = cachedCategories || {};
-
-        if (cachedTotal === undefined) {
-            document.querySelectorAll('.qty-input').forEach(input => {
-                let qty = parseInt(input.value) || 0;
-                if(qty > 0) {
-                    let price = parseInt(input.getAttribute('data-price')) || 0;
-                    let name = input.getAttribute('data-name');
-                    let cat = input.getAttribute('data-cat');
-                    total += (price * qty);
-                    if(!categories[cat]) categories[cat] = [];
-                    categories[cat].push(`- ${name} x${qty} (${fmt(price * qty)})`);
-                }
-            });
-        }
-
+        // 텍스트 가져오기
         const nick = document.getElementById('in-nickname').value || "미작성";
         const concept = document.getElementById('in-concept').value || "미작성";
         const req = document.getElementById('in-req').value || "미작성";
 
-        // 양식 스크립트 빌더 조립
+        // 양식 조립
         let previewHTML = "";
 
         if(selectedRigging) {
@@ -677,54 +711,27 @@
         document.getElementById('preview-area').innerText = previewHTML;
     }
 
-    // 양식 클립보드 복사 유틸리티
+    // 양식 복사
     function copyForm() {
         const text = document.getElementById('preview-area').innerText;
-        if(!text || text.trim() === "") {
-            alert("복사할 신청 양식 내용이 없습니다.");
-            return;
-        }
         navigator.clipboard.writeText(text).then(() => {
-            alert("신청 양식이 클립보드에 복사되었습니다.");
-        }).catch(err => {
-            alert("복사에 실패했습니다. 직접 드래그하여 복사해주세요.");
+            alert("신청 양식이 복사되었습니다.");
         });
     }
 
-    // 폼 초기화 스크립트 실행
+    // 초기화
     function resetForm() {
-        if(confirm("선택 항목과 작성 내용을 모두 초기화하시겠습니까?")) {
-            document.querySelectorAll('.qty-input').forEach(el => el.value = 0);
-            document.querySelectorAll('.rigging-checkbox').forEach(el => el.checked = false);
-            document.querySelectorAll('.opt-row, .rigging-card').forEach(el => el.classList.remove('active', 'selected'));
-            document.getElementById('in-nickname').value = "";
-            document.getElementById('in-concept').value = "";
-            document.getElementById('in-req').value = "";
-            selectedRigging = "";
-            updateTotal();
-        }
+        document.querySelectorAll('.qty-input').forEach(el => el.value = 0);
+        document.querySelectorAll('.rigging-checkbox').forEach(el => el.checked = false);
+        document.querySelectorAll('.opt-row, .rigging-card').forEach(el => el.classList.remove('active', 'selected'));
+        document.getElementById('in-nickname').value = "";
+        document.getElementById('in-concept').value = "";
+        document.getElementById('in-req').value = "";
+        calc();
     }
 
-    // 고화질 대형 모달 뷰어 활성화
-    function openModal(imgSrc) {
-        const modal = document.getElementById('imageModal');
-        const modalImg = document.getElementById('modal-img');
-        modal.style.display = "flex";
-        modalImg.src = imgSrc;
-        document.body.style.overflow = "hidden"; // 배경 스크롤 차단
-    }
-
-    // 모달 소멸 처리
-    function closeModal() {
-        document.getElementById('imageModal').style.display = "none";
-        document.body.style.overflow = "auto"; // 배경 스크롤 복구
-    }
-
-    // 문서 초기 기동 시 기본 랜더링
-    window.onload = function() {
-        updateTotal();
-    };
+    // 초기 계산 실행
+    calc();
 </script>
-
 </body>
 </html>
