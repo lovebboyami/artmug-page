@@ -96,14 +96,48 @@
     .yt-btn { display: inline-block; padding: 8px 16px; background: #ff0000; color: #fff; text-decoration: none; border-radius: 20px; font-size: 13px; font-weight: bold; }
     .client-name { position: absolute; bottom: 10px; left: 10px; background: rgba(0,0,0,0.6); color: #fff; padding: 4px 10px; border-radius: var(--radius-sm); font-size: 13px; pointer-events: none; }
 
-    .modal-gallery { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.9); z-index:9999; justify-content:center; align-items:center; }
+    .modal-gallery { display:none; position:fixed; inset:0; background:rgba(255,240,243,0.97); z-index:9999; justify-content:center; align-items:center; }
     .modal-gallery.active { display:flex; }
-    .modal-content { position:relative; max-width:90vw; max-height:90vh; }
-    .modal-content img { max-width:100%; max-height:90vh; display:block; border-radius:12px; }
+    .modal-content { position:relative; width:95vw; height:95vh; display:flex; justify-content:center; align-items:center; overflow:auto; }
+    .modal-content img { max-width:none; max-height:none; width:auto; height:auto; cursor:zoom-in; }
+    .modal-content img.zoomed { width:150%; max-width:150%; cursor:zoom-out; }
     .modal-close { position:absolute; top:-50px; right:0; color:#fff; font-size:40px; cursor:pointer; }
     .modal-prev,.modal-next { position:absolute; top:50%; transform:translateY(-50%); color:#fff; font-size:50px; cursor:pointer; user-select:none; padding:20px; }
-    .modal-prev { left:-80px; }
-    .modal-next { right:-80px; }
+    .modal-counter {
+    position:fixed;
+    bottom:20px;
+    left:50%;
+    transform:translateX(-50%);
+    color:#222;
+    font-size:18px;
+    font-weight:700;
+    background:#fff;
+    padding:10px 20px;
+    border-radius:999px;
+    }
+    .modal-prev {
+    position:fixed;
+    bottom:20px;
+    left:calc(50% - 120px);
+    transform:none;
+    font-size:32px;
+    color:#222;
+    background:#fff;
+    border-radius:999px;
+    padding:8px 16px;
+    }
+    
+    .modal-next {
+    position:fixed;
+    bottom:20px;
+    left:calc(50% + 70px);
+    transform:none;
+    font-size:32px;
+    color:#222;
+    background:#fff;
+    border-radius:999px;
+    padding:8px 16px;
+    }
     .modal-counter { position:absolute; bottom:-40px; left:50%; transform:translateX(-50%); color:#fff; font-size:16px; }
 
     /* 단가 및 옵션 선택 */
@@ -260,9 +294,6 @@
                     <p>일러스트 : 레레 / 리깅 : 홍길동</p>
                     <a href="유튜브링크" target="_blank" class="yt-btn">리깅 바로보기</a>
                 </div>
-                    
-                    <img src="model_sample1.jpg" alt="원본">
-                    <img src="model_sample1_1.jpg" alt="추가">
                 </div>
             </div>
             </div>
@@ -619,6 +650,12 @@
         if(currentImage < 0) currentImage = galleryImages.length - 1;
         updateGallery();
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('galleryImage').addEventListener('click', function() {
+        this.classList.toggle('zoomed');
+    });
+});
     
     function nextImage() {
         currentImage++;
