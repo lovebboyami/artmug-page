@@ -103,8 +103,8 @@
     .modal-content { position:relative; width:95vw; height:95vh; display:flex; justify-content:center; align-items:flex-start; overflow:auto; }
     .modal-content img { max-width:90vw; max-height:85vh; width:auto; height:auto; cursor:zoom-in; transition:0.2s; }
     .modal-content img.zoomed { max-width:none; max-height:none; cursor:zoom-out; }
-    .modal-close { position:absolute; top:-50px; right:0; color:#fff; font-size:40px; cursor:pointer; }
-    .modal-prev,.modal-next { position:absolute; top:50%; transform:translateY(-50%); color:#fff; font-size:50px; cursor:pointer; user-select:none; padding:20px; }
+    .modal-close { position:fixed; top:30px; right:30px; width:44px; height:44px; display:flex; justify-content:center; align-items:center; color:#fff; background:rgba(0,0,0,0.6); border-radius:50%; font-size:28px; cursor:pointer; z-index:10; }
+    .modal-prev,.modal-next { position:fixed; top:50%; transform:translateY(-50%); width:50px; height:50px; display:flex; justify-content:center; align-items:center; color:#fff; background:rgba(0,0,0,0.6); border-radius:50%; font-size:28px; cursor:pointer; user-select:none; padding:0; z-index:10; }
     .modal-counter {
     position:fixed;
     bottom:20px;
@@ -117,29 +117,8 @@
     padding:10px 20px;
     border-radius:999px;
     }
-    .modal-prev {
-    position:fixed;
-    bottom:20px;
-    left:calc(50% - 120px);
-    transform:none;
-    font-size:32px;
-    color:#222;
-    background:#fff;
-    border-radius:999px;
-    padding:8px 16px;
-    }
-    
-    .modal-next {
-    position:fixed;
-    bottom:20px;
-    left:calc(50% + 70px);
-    transform:none;
-    font-size:32px;
-    color:#222;
-    background:#fff;
-    border-radius:999px;
-    padding:8px 16px;
-    }
+    .modal-prev { left:30px; }
+    .modal-next { right:30px; left:auto; }
 
     /* 단가 및 옵션 선택 */
     /* 리깅 협업 작가 (상단 3열) */
