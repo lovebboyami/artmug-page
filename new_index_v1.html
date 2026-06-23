@@ -99,7 +99,7 @@
     /* 인라인 확장 뷰어 */
     .card.expanded { grid-column: 1 / -1; display: flex; flex-direction: column; background: var(--gray-bg); }
     .card.expanded .card-thumb, .card.expanded .card-info { display: none; }
-    .full-view { display: none; padding: 20px; text-align: center; }
+    .full-view { display: none; padding: 20px; text-align: center; cursor: pointer; }
     .card.expanded .full-view { display: block; }
     .close-btn { background: var(--text); color: #fff; border: none; padding: 10px 20px; border-radius: 30px; font-size: 15px; font-weight: bold; cursor: pointer; margin-bottom: 20px; font-family: inherit; }
     .close-btn:hover { background: #000; }
@@ -259,8 +259,8 @@
                     <p>일러스트 : 레레 / 리깅 : 홍길동</p>
                     <a href="유튜브링크" target="_blank" class="yt-btn">리깅 바로보기</a>
                 </div>
-                <div class="full-view">
-                    <button class="close-btn" onclick="toggleExpand(this)">X 닫기</button>
+                <div class="full-view" onclick="toggleExpand(this)">
+                    
                     <img src="model_sample1.jpg" alt="원본">
                     <img src="model_sample1_1.jpg" alt="추가">
                 </div>
@@ -276,8 +276,8 @@
                     <img src="portfolio1.jpg" alt="포트폴리오">
                     <div class="client-name">치지직 탬탬버린 님</div>
                 </div>
-                <div class="full-view">
-                    <button class="close-btn" onclick="toggleExpand(this)">X 닫기</button>
+                <div class="full-view" onclick="toggleExpand(this)">
+                    <p style="margin-bottom:20px; font-weight:600;">이미지 아무 곳이나 클릭하면 닫힙니다.</p>
                     <img src="portfolio1.jpg" alt="원본">
                     <img src="portfolio1_1.jpg" alt="추가">
                 </div>
@@ -287,8 +287,8 @@
                     <img src="portfolio2.jpg" alt="포트폴리오">
                     <div class="client-name">의뢰자 닉네임 님</div>
                 </div>
-                <div class="full-view">
-                    <button class="close-btn" onclick="toggleExpand(this)">X 닫기</button>
+                <div class="full-view" onclick="toggleExpand(this)">
+                    <p style="margin-bottom:20px; font-weight:600;">이미지 아무 곳이나 클릭하면 닫힙니다.</p>
                     <img src="portfolio2.jpg" alt="원본">
                     <img src="portfolio2_1.jpg" alt="추가">
                 </div>
@@ -595,11 +595,27 @@
 
 <script>
     // 인라인 확장 뷰어 토글
-    function toggleExpand(element) {
-        // card 클래스를 가진 부모 찾기
-        const card = element.closest('.card');
-        card.classList.toggle('expanded');
+function toggleExpand(element) {
+    const card = element.closest('.card');
+    const gallery = card.parentElement;
+
+    if (card.classList.contains('expanded')) {
+        card.classList.remove('expanded');
+
+        gallery.querySelectorAll('.card').forEach(c => {
+            c.style.display = '';
+        });
+
+    } else {
+        gallery.querySelectorAll('.card').forEach(c => {
+            c.classList.remove('expanded');
+            c.style.display = 'none';
+        });
+
+        card.style.display = '';
+        card.classList.add('expanded');
     }
+}
 
     // 리깅 작가 선택 토글
     function toggleRigging(card) {
