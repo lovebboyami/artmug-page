@@ -175,13 +175,10 @@
 
     /* 모바일 반응형 */
     @media (max-width: 768px) {
-        .gallery-grid, .rigging-grid, .options-grid, .form-wrap { grid-template-columns: 1fr; }
-        .profile-wrap { flex-direction: column; text-align: center; }
-        .option-group-title .rigging-desc {
-        display: block;
-        margin-left: 0;
-        margin-top: 4px;
-        }
+        .modal-content { align-items:center; }
+        .gallery-grid, .rigging-grid, .options-grid, .form-wrap { grid-template-columns:1fr; }
+        .profile-wrap { flex-direction:column; text-align:center; }
+        .option-group-title .rigging-desc { display:block; margin-left:0; margin-top:4px; }
     }
 
     .gallery-thumbs { position:fixed; bottom:80px; left:50%; transform:translateX(-50%); display:flex; gap:10px; z-index:10; }
@@ -649,11 +646,43 @@
         updateGallery();
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('galleryImage').addEventListener('click', function() {
-        this.classList.toggle('zoomed');
+    document.addEventListener('DOMContentLoaded', function(){
+    const img=document.getElementById('galleryImage');
+    let isDown=false;
+    let startX,startY,scrollLeft,scrollTop;
+    
+    img.addEventListener('click',function(){
+    this.classList.toggle('zoomed');
     });
-});
+    
+    img.addEventListener('mousedown',function(e){
+    if(!this.classList.contains('zoomed')) return;
+    isDown=true;
+    this.parentElement.style.cursor='grabbing';
+    startX=e.pageX-this.parentElement.offsetLeft;
+    startY=e.pageY-this.parentElement.offsetTop;
+    scrollLeft=this.parentElement.scrollLeft;
+    scrollTop=this.parentElement.scrollTop;
+    });
+    
+    img.parentElement.addEventListener('mouseleave',function(){
+    isDown=false;
+    });
+    
+    img.parentElement.addEventListener('mouseup',function(){
+    isDown=false;
+    this.style.cursor='default';
+    });
+    
+    img.parentElement.addEventListener('mousemove',function(e){
+    if(!isDown) return;
+    e.preventDefault();
+    const x=e.pageX-this.offsetLeft;
+    const y=e.pageY-this.offsetTop;
+    this.scrollLeft=scrollLeft-(x-startX);
+    this.scrollTop=scrollTop-(y-startY);
+    });
+    });
     
     function nextImage() {
         currentImage++;
