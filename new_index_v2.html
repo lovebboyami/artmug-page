@@ -96,14 +96,15 @@
     .yt-btn { display: inline-block; padding: 8px 16px; background: #ff0000; color: #fff; text-decoration: none; border-radius: 20px; font-size: 13px; font-weight: bold; }
     .client-name { position: absolute; bottom: 10px; left: 10px; background: rgba(0,0,0,0.6); color: #fff; padding: 4px 10px; border-radius: var(--radius-sm); font-size: 13px; pointer-events: none; }
 
-    /* 인라인 확장 뷰어 */
-    .card.expanded { grid-column: 1 / -1; display: flex; flex-direction: column; background: var(--gray-bg); }
-    .card.expanded .card-thumb, .card.expanded .card-info { display: none; }
-    .full-view { display: none; padding: 20px; text-align: center; cursor: pointer; }
-    .card.expanded .full-view { display: block; }
-    .close-btn { background: var(--text); color: #fff; border: none; padding: 10px 20px; border-radius: 30px; font-size: 15px; font-weight: bold; cursor: pointer; margin-bottom: 20px; font-family: inherit; }
-    .close-btn:hover { background: #000; }
-    .full-view img { max-width: 100%; height: auto; border-radius: var(--radius-sm); margin-bottom: 15px; }
+    .modal-gallery { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.9); z-index:9999; justify-content:center; align-items:center; }
+    .modal-gallery.active { display:flex; }
+    .modal-content { position:relative; max-width:90vw; max-height:90vh; }
+    .modal-content img { max-width:100%; max-height:90vh; display:block; border-radius:12px; }
+    .modal-close { position:absolute; top:-50px; right:0; color:#fff; font-size:40px; cursor:pointer; }
+    .modal-prev,.modal-next { position:absolute; top:50%; transform:translateY(-50%); color:#fff; font-size:50px; cursor:pointer; user-select:none; padding:20px; }
+    .modal-prev { left:-80px; }
+    .modal-next { right:-80px; }
+    .modal-counter { position:absolute; bottom:-40px; left:50%; transform:translateX(-50%); color:#fff; font-size:16px; }
 
     /* 단가 및 옵션 선택 */
     /* 리깅 협업 작가 (상단 3열) */
@@ -250,7 +251,7 @@
         <h2>판매모델</h2>
         <div class="gallery-grid">
             <div class="card">
-                <div class="card-thumb" onclick="toggleExpand(this)">
+                <div class="card-thumb" onclick="openGallery(['model_sample1.jpg','model_sample1_1.jpg'])">
                     <img src="model_sample1.jpg" alt="판매모델">
                 </div>
                 <div class="card-info">
@@ -259,7 +260,6 @@
                     <p>일러스트 : 레레 / 리깅 : 홍길동</p>
                     <a href="유튜브링크" target="_blank" class="yt-btn">리깅 바로보기</a>
                 </div>
-                <div class="full-view" onclick="toggleExpand(this)">
                     
                     <img src="model_sample1.jpg" alt="원본">
                     <img src="model_sample1_1.jpg" alt="추가">
@@ -272,25 +272,15 @@
         <h2>포트폴리오 <span class="gallery-subtitle">내려갈 수록 오래된 작업 입니다.</span></h2>
         <div class="gallery-grid">
             <div class="card">
-                <div class="card-thumb" onclick="toggleExpand(this)">
+                <div class="card-thumb" onclick="openGallery(['portfolio1.jpg','portfolio1_1.jpg'])">
                     <img src="portfolio1.jpg" alt="포트폴리오">
                     <div class="client-name">앗슈산제 님</div>
                 </div>
-                <div class="full-view" onclick="toggleExpand(this)">
-                    <p style="margin-bottom:20px; font-weight:600;">이미지 아무 곳이나 클릭하면 닫힙니다.</p>
-                    <img src="portfolio1.jpg" alt="원본">
-                    <img src="portfolio1_1.jpg" alt="추가">
-                </div>
             </div>
             <div class="card">
-                <div class="card-thumb" onclick="toggleExpand(this)">
+                <div class="card-thumb" onclick="openGallery(['portfolio2.jpg','portfolio2_1.jpg'])">
                     <img src="portfolio2.jpg" alt="포트폴리오">
                     <div class="client-name">이응 님</div>
-                </div>
-                <div class="full-view" onclick="toggleExpand(this)">
-                    <p style="margin-bottom:20px; font-weight:600;">이미지 아무 곳이나 클릭하면 닫힙니다.</p>
-                    <img src="portfolio2.jpg" alt="원본">
-                    <img src="portfolio2_1.jpg" alt="추가">
                 </div>
             </div>
             </div>
@@ -591,31 +581,50 @@
         </details>
     </div>
 
+<div class="modal-gallery" id="galleryModal">
+    <div class="modal-content">
+        <span class="modal-close" onclick="closeGallery()">×</span>
+        <span class="modal-prev" onclick="prevImage()">❮</span>
+        <img id="galleryImage">
+        <span class="modal-next" onclick="nextImage()">❯</span>
+        <div class="modal-counter" id="galleryCounter"></div>
+    </div>
 </div>
 
 <script>
     // 인라인 확장 뷰어 토글
-function toggleExpand(element) {
-    const card = element.closest('.card');
-    const gallery = card.parentElement;
-
-    if (card.classList.contains('expanded')) {
-        card.classList.remove('expanded');
-
-        gallery.querySelectorAll('.card').forEach(c => {
-            c.style.display = '';
-        });
-
-    } else {
-        gallery.querySelectorAll('.card').forEach(c => {
-            c.classList.remove('expanded');
-            c.style.display = 'none';
-        });
-
-        card.style.display = '';
-        card.classList.add('expanded');
+    let galleryImages = [];
+    let currentImage = 0;
+    
+    function openGallery(images) {
+        galleryImages = images;
+        currentImage = 0;
+        updateGallery();
+        document.getElementById('galleryModal').classList.add('active');
+        document.body.style.overflow = 'hidden';
     }
-}
+    
+    function closeGallery() {
+        document.getElementById('galleryModal').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    
+    function updateGallery() {
+        document.getElementById('galleryImage').src = galleryImages[currentImage];
+        document.getElementById('galleryCounter').innerText = (currentImage + 1) + ' / ' + galleryImages.length;
+    }
+    
+    function prevImage() {
+        currentImage--;
+        if(currentImage < 0) currentImage = galleryImages.length - 1;
+        updateGallery();
+    }
+    
+    function nextImage() {
+        currentImage++;
+        if(currentImage >= galleryImages.length) currentImage = 0;
+        updateGallery();
+    }
 
     // 리깅 작가 선택 토글
     function toggleRigging(card) {
