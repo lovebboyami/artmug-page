@@ -209,6 +209,8 @@
         // 양식 조립
         let previewHTML = "";
 
+        previewHTML += `<선택 옵션>\n\n`;
+
         if(selectedRigging) {
             previewHTML += `[리깅]\n- ${selectedRigging}\n\n`;
         }
@@ -220,11 +222,11 @@
         }
 
         previewHTML += `[합계]\n- ${fmt(total)}\n\n`;
-        previewHTML += `-------------------------\n\n`;
-        previewHTML += `방송 닉네임 :\n${nick}\n\n`;
+        previewHTML += `-------------------------\n`;
+        previewHTML += `<문의 내용>\n\n`;
+        previewHTML += `방송 닉네임, 방송 플랫폼 :\n${nick}\n\n`;
         previewHTML += `캐릭터 컨셉 :\n${concept}\n\n`;
         previewHTML += `기타 요청사항 :\n${req}`;
-
         document.getElementById('preview-area').innerText = previewHTML;
     }
 
